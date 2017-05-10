@@ -1,0 +1,42 @@
+extends layout
+
+block header
+    nav
+        ul
+            li#login
+                a(href='register.html') Login/register
+            li
+                a(href='about.html') About Us
+            li
+                a(href='games.html') Games
+            li
+                a(href='friends.html') Friends
+            li.current
+                a(href='main.html') Home
+                img(src='logo.png', alt='Main Logo')
+            li#maintitle
+                h2 Game Node
+
+block content
+    .boxes.shadow
+        .one
+            img.shadow(src='users.png', alt='User Icon')
+            p Dynamic community connected with live chatrooms.
+        .two
+            img.shadow(src='rang.png', alt='Rank Icon')
+            p Advanced ranking system with matchmaking capabilities.
+        .three
+            img.shadow(src='server.png', alt='Server Icon')
+            p Dedicated servers with high tickrates and low pings.
+            
+    .slideshow.shadow
+        .slideitem.transition
+            img(src='dota2.jpg', alt='Dota 2')
+            p DOTA 2
+        .slideitem.transition
+            img(src='csgo.jpg', alt='csgo')
+            p CS:GO
+        .slideitem.transition
+            img(src='overwatch.jpg', alt='overwatch')
+            p Overwatch
+            
