@@ -1,4 +1,4 @@
 /* Get Home page */
-module.exports.index = function(req, res) {
-	res.render('index', {title: 'Game Node'});
+module.exports.home = function(req, res) {
+	res.render('home', {title: 'Game Node'});
 }

@@ -1,9 +1,21 @@
 doctype html
 html
-  head
-    title=title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block header
-    block content
-    block footer
+	head
+		title=title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		block header
+		block content
+		footer
+			ul
+				li
+					a(href='home.html') Home
+				li
+					a(href='friends.html') Friends
+				li
+					a(href='games.html') Games
+				li
+					a(href='about.html') About Us
+				li#time
+				li#modtime
+		script(src='javascripts/footer.js', type='text/javascript')

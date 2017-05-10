@@ -1,42 +1,69 @@
 extends layout
 
 block header
-    nav
-        ul
-            li#login
-                a(href='register.html') Login/register
-            li
-                a(href='about.html') About Us
-            li
-                a(href='games.html') Games
-            li
-                a(href='friends.html') Friends
-            li.current
-                a(href='main.html') Home
-                img(src='logo.png', alt='Main Logo')
-            li#maintitle
-                h2 Game Node
+	nav
+		ul
+			li#login
+				a(href='register.html') Login/Register
+			li
+				a(href='about.html') About Us
+			li
+				a(href='games.html') Games
+			li
+				a(href='friends.html') Friends
+			li.current
+				a(href='main.html') Home
+			li#barlogo
+				a(href='main.html')
+					img(src='images/logo.png', alt='Main Logo')
+			li#maintitle
+				h2 Game Node
 
 block content
-    .boxes.shadow
-        .one
-            img.shadow(src='users.png', alt='User Icon')
-            p Dynamic community connected with live chatrooms.
-        .two
-            img.shadow(src='rang.png', alt='Rank Icon')
-            p Advanced ranking system with matchmaking capabilities.
-        .three
-            img.shadow(src='server.png', alt='Server Icon')
-            p Dedicated servers with high tickrates and low pings.
-            
-    .slideshow.shadow
-        .slideitem.transition
-            img(src='dota2.jpg', alt='Dota 2')
-            p DOTA 2
-        .slideitem.transition
-            img(src='csgo.jpg', alt='csgo')
-            p CS:GO
-        .slideitem.transition
-            img(src='overwatch.jpg', alt='overwatch')
-            p Overwatch
-            
+	.logoitem.shadow
+		a(href='register.html')
+			h2.shadow.grow Register Now!
+		br
+		img.shadow(src='images/controller.png', alt='Controller')
+		ul.shadow
+			li
+				a(href='www.facebook.com')
+				img.grow(src='images/facebook.png', alt='Facebook')
+			li
+				a(href='www.twitter.com')
+				img.grow(src='images/twitter.png', alt='Twitter')
+			li
+				a(href='www.steam.com')
+				img.grow(src='images/steam.png', alt='Steam')
+		h1 GET PLAYING
+		p.shadow
+			span Game Node is a platform that connects gamers all over the world.
+			br
+			span Our 
+			b dynamic 
+			span matchmaking system will match you with players of simmilar rank.
+	
+	.boxes.shadow
+		.one
+			img.shadow(src='images/users.png', alt='User Icon')
+			p Dynamic community connected with live chatrooms.
+		.two
+			img.shadow(src='images/rank.png', alt='Rank Icon')
+			p Advanced ranking system with matchmaking capabilities.
+		.three
+			img.shadow(src='images/server.png', alt='Server Icon')
+			p Dedicated servers with high tickrates and low pings.
+			
+	.slideshow.shadow
+		.slideitem.transition
+			img(src='images/dota2.jpg', alt='Dota 2')
+			p DOTA 2
+		.slideitem.transition
+			img(src='images/csgo.jpg', alt='csgo')
+			p CS:GO
+		.slideitem.transition
+			img(src='images/overwatch.jpg', alt='overwatch')
+			p Overwatch
+		script(src='javascripts/slides.js', type='text/javascript')
+		a.left(onclick='leftButton()') &#8678;
+		a.right(onclick='rightButton()') &#8680;
