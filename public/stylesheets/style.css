@@ -1,4 +1,3 @@
-
 body {
 	background-image: url(../images/backg.jpg);
 	background-size: 100%;	
@@ -6,7 +5,6 @@ body {
 	margin:0 ;
 	height: 100%;
 	width: 100%;
-	
 }
 
 section {
@@ -66,31 +64,6 @@ footer li a:hover {
 	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
 }
 
-/*The current page*/
-.current {
-	background-color: rgb(51, 102, 153);
-	border-radius: 10px;
-}
-
-/* NAVIGATION BAR logo*/
-#barlogo {
-	float:left;	
-	margin-top: 5px;
-}
-
-#barlogo img {
-	width: 40px;
-	-ms- -moz-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	-moz-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	-webkit-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-
-}
-
-#barlogo :hover{
-	background-color: transparent;
-}
-
 /*Global shadow property*/
 .shadow {
 	-ms-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
@@ -99,63 +72,105 @@ footer li a:hover {
 	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
 }
 
-/* NAVIGATION BAR */
+/* * *
+ * Navigation Bar Logo Styles
+ * Provides shadows and positioning for
+ * the logo in the nav bar.
+ */
+#barlogo {
+	float: left;	
+	margin-top: 5px;
+}
+
+#barlogo img {
+	width: 40px;
+	-ms-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
+	-moz-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
+	-webkit-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
+	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
+
+}
+
+/* * *
+ * Navigation Bar Styles
+ * Provides a consistent nav bar interface
+ * on each page.
+ */
 nav {
 	position: fixed;
-	z-index: 2;
+	z-index: 1;
 	-webkit-filter: drop-shadow(7px 6px 5px rgba(0,0,0,0.7));
 	-moz-filter: drop-shadow(7px 6px 5px rgba(0,0,0,0.7));
 	-ms-filter: drop-shadow(7px 6px 5px rgba(0,0,0,0.7));
 	filter: drop-shadow(7px 6px 5px rgba(0,0,0,0.7));
-	top:0;
+	top: 0;
 	width: 100%;
+	font-size: 0px;
+	margin: 0px;
+	padding: 0px;
+	background-color: rgb(245, 245, 245);
 }
 
-nav ul {
-
-	list-style-type: none;
-    margin: 0 ;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgb(245,245,245);
-    top: 0;
-}
-
-nav li {
-	float:right;
+nav a {
+	display: inline-block;
+	color: black;
+	font-size: 20px;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-family: 'Gill Sans', sans-serif;
+	float: right;
 	margin-top: 15px;
-
 }
 
-nav li a {
-	display: block;
-    color: black;
-    font-size:20px;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-family: Gill Sans, sans-serif;
-
-}
-
-nav li a:hover {
+nav a:hover {
 	background-color: rgba(25,25,112,0.7);
 	border-radius: 10px;
 }
 
 nav h2 {
-	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+	font-family: 'Trebuchet MS', Helvetica, sans-serif;
 	font-size: 30px;
 }
 
-#maintitle {
-	margin-top: 0;
-	float:left;
+#login {
+	background-color: rgb(135, 206, 250);
+	border-radius: 10px;
 }
 
-#login {
-	background-color: rgb(135,206,250);
+.current {
+	background-color: rgb(51, 102, 153);
 	border-radius: 10px;
+}
+
+/* * *
+ * Navigation Bar Drop Down Styles
+ * Provides the styles for a drop down
+ * menu for the users account/
+ */
+.dropdown {
+	position: relative;
+	display: inline-block;
+	float: right;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	min-width: 200px;
+	background-color: rgb(245, 245, 245);
+	margin-top: 65px;
+	margin-left: -75px;
+}
+
+.dropdown-content a {
+	display: block;
+	float: none;
+	margin-top: 0;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
 }
 
 /*Home webpage main section*/
@@ -599,4 +614,3 @@ fieldset {
     margin: 4px 2px;
     font-size: 26px;
 }
-
