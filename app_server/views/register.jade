@@ -1,0 +1,72 @@
+extends layout
+
+block content
+    .regcontainer.shadow
+        .login
+            form
+                fieldset
+                    legend Login
+                    label Username:
+                    br
+                    input(type='text' min='3' max='10' required)
+                    br
+                    label Password:
+                    br
+                    input(type='password' min='6' max='12' required)
+                    br
+                    input(type='submit' value='Submit')
+                    input(type='reset', value='Reset')
+        .register.shadow
+            form(onsubmit='return validateForm()')
+                fieldset
+                    legend Register
+                    label Username:
+                    br
+                    input(type='text' name='uname' required)
+                    br
+                    br
+                    label Password:
+                    br
+                    input(type='password' name='pword' required)
+                    button(type='button' onclick='showPassword()') Toggle Password
+                    br
+                    br
+                    label Confirm Password:
+                    br
+                    input(type='password' name='pword' required)
+                    br
+                    br
+                    label Email Address:
+                    br
+                    input(type='email' name='email' required)
+                    br
+                    br
+                    label Age:
+                    input(type='date', name='age', min='1900-01-01' max='2003-01-01' required)
+                    br
+                    br
+                    label Location:
+                    br
+                    br
+                    select
+                        option(value='America') Americas
+                        option(value='Europe') Europe
+                        option(value='Asia') Asia
+                        option(value='Oceania') Oceania
+                        option(value='Africa') Africa
+                    br
+                    br
+                    label Games:
+                    input.cbox(type='checkbox' name='Tf2') 
+                    label TF2
+                    input.cbox(type='checkbox' name='CSGO')
+                    label CSGO
+                    input.cbox(type='checkbox' name='Dota2')
+                    label Dota2
+                    input.cbox(type='checkbox' name='Overwatch')
+                    label Overwatch
+                    br
+                    br
+                    input(type='submit' value='Submit')
+                    input(type='reset' value='Reset')
+                script(src='javascripts/validate.js', type='text/javascript')

@@ -1,25 +1,21 @@
 extends layout
 
-block header
-	// if (logged in) include nav-bar-user, else
-	include nav-bar-login
-
 block content
 	.logoitem.shadow
-		a(href='register.html')
+		a(href='/login')
 			h2.shadow.grow Register Now!
 		br
 		img.shadow(src='images/controller.png', alt='Controller')
 		ul.shadow
 			li
 				a(href='www.facebook.com')
-				img.grow(src='images/facebook.png', alt='Facebook')
+					img.grow(src='images/facebook.png', alt='Facebook' )
 			li
 				a(href='www.twitter.com')
-				img.grow(src='images/twitter.png', alt='Twitter')
+					img.grow(src='images/twitter.png', alt='Twitter')
 			li
 				a(href='www.steam.com')
-				img.grow(src='images/steam.png', alt='Steam')
+					img.grow(src='images/steam.png', alt='Steam')
 		h1 GET PLAYING
 		p.shadow
 			span Game Node is a platform that connects gamers all over the world.

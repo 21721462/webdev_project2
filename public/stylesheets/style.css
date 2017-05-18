@@ -84,10 +84,10 @@ footer li a:hover {
 
 #barlogo img {
 	width: 40px;
-	-ms-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
+	/*-ms-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
 	-moz-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
 	-webkit-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
+	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));*/
 
 }
 
@@ -123,7 +123,7 @@ nav a {
 	margin-top: 15px;
 }
 
-nav a:hover {
+nav a:hover:not(#barlogo):not(.current) {
 	background-color: rgba(25,25,112,0.7);
 	border-radius: 10px;
 }
