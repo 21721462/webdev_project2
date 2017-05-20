@@ -8,7 +8,8 @@ html
 		// The header content
 		nav
 			if (!user)
-				a#login(href='/register') Register/Login
+				a(href='/register') Register
+				a(href='/login') Login
 			else
 				.dropdown
 					a(href='/profile') #{user.name}
@@ -40,7 +41,9 @@ html
 				li
 					a(href='/about') About Us
 				li
-					a(href='/register') Register/Login
+					a(href='/register') Register
+				li
+					a(href='/login') Login
 				li#time
 				li#modtime
 			script(src='javascripts/footer.js', type='text/javascript')

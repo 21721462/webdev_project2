@@ -3,6 +3,7 @@
  */
 
 var express = require('express');
+var passport = require('passport');
 var router = express.Router();
 
 // Get the required controllers
@@ -28,6 +29,15 @@ router.get('/about', generalController.about);
 
 // GET request for creating a user (register page)
 router.get('/register', userController.userCreateGet);
+
+// POST request for creating a user
+router.post('/register', userController.userCreatePost);
+
+// GET request for logging in
+router.get('/login', userController.userLoginGet);
+
+// POST request for logging in
+router.post('/login', passport.authenticate('local'), userController.userLoginPost);
 
 // Add more as they are being used
 

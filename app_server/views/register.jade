@@ -2,32 +2,23 @@ extends layout
 
 block content
     .regcontainer.shadow
-        .login
-            form
-                fieldset
-                    legend Login
-                    label Username:
-                    br
-                    input(type='text', name='login-username', min='3', max='10', required)
-                    br
-                    label Password:
-                    br
-                    input(type='password', name='login-password', min='6', max='12', required)
-                    br
-                    input(type='submit', value='Submit')
-                    input(type='reset', value='Reset')
         .register.shadow
-            form(onsubmit='return validateForm()')
+            form(action='/register', method='POST', onsubmit='return validateForm()')
                 fieldset
                     legend Register
+                    label Name:
+                    br
+                    input(type='text', name='name', min='3', max='10', required)
+                    br
+                    br
                     label Username:
                     br
-                    input(type='text', name='username', required)
+                    input(type='text', name='username', min='3', max='10', required)
                     br
                     br
                     label Password:
                     br
-                    input(type='password', name='password', required)
+                    input(type='password', name='password', min='6', max='12', required)
                     button(type='button', onclick='showPassword()') Toggle Password
                     br
                     br
@@ -48,23 +39,12 @@ block content
                     label Location:
                     br
                     br
-                    select
+                    select(name='location')
                         option(value='America') Americas
                         option(value='Europe') Europe
                         option(value='Asia') Asia
                         option(value='Oceania') Oceania
                         option(value='Africa') Africa
-                    br
-                    br
-                    label Games:
-                    input.cbox(type='checkbox' name='Tf2') 
-                    label TF2
-                    input.cbox(type='checkbox' name='CSGO')
-                    label CSGO
-                    input.cbox(type='checkbox' name='Dota2')
-                    label Dota2
-                    input.cbox(type='checkbox' name='Overwatch')
-                    label Overwatch
                     br
                     br
                     input(type='submit' value='Submit')
