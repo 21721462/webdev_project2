@@ -5,45 +5,46 @@ html
 		meta(charset='utf-8')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
-		// The header content
-		nav
-			if (!user)
-				a(href='/register') Register
-				a(href='/login') Login
-			else
-				.dropdown
-					a(href='/profile') #{user.name}
-					.dropdown-content
-						a(href='/profile') User Profile
-						a(href='#') Edit Profile
-						a(href='#') Account Settings
-						a(href='#') Log Out
-			a(href='/about') About Us
-			//a(href='/games') Games
-			//a(href='/friends') Friends
-			a.current(href='/') Home
-			a#barlogo(href='/')
-				img(src='images/logo.png', alt='Main Logo')
-			h2#maintitle Game Node
-
-		// The body content
-		block content
-
-		// The footer content
+		.sticky-footer-wrapper
+			header
+				nav
+					a(href='/about') About
+					if (!user)
+						a(href='/register') Register
+						a(href='/login') Login
+					else
+						.dropdown
+							a(href='/profile') #{user.name}
+							.dropdown-content
+								a(href='/profile') User Profile
+								a(href='#') Edit Profile
+								a(href='#') Account Settings
+								a(href='/logout') Log Out
+						a(href='/games') Games
+						a(href='/friends') Friends
+					a(href='/') Home
+					a#barlogo(href='/')
+						img(src='images/logo.png', alt='Main Logo')
+					h2#maintitle Game Node
+			block content
 		footer
 			ul
 				li
 					a(href='/') Home
-				//li
-					a(href='/friends') Friends
-				//li
-					a(href='/games') Games
+				if (user)
+					li
+						a(href='/friends') Friends
+					li
+						a(href='/games') Games
+					li
+						a(href='/profile') #{user.name}
+				else
+					li
+						a(href='/login') Login
+					li
+						a(href='/register') Register
 				li
-					a(href='/about') About Us
-				li
-					a(href='/register') Register
-				li
-					a(href='/login') Login
+					a(href='/about') About
 				li#time
 				li#modtime
 			script(src='javascripts/footer.js', type='text/javascript')

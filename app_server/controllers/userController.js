@@ -17,7 +17,7 @@ exports.userList = function(req, res, next) {
 
 // Display User create form on GET
 exports.userCreateGet = function(req, res, next) {
-    res.render('register', {title: 'Register/Login'});
+    res.render('register', {title: 'Register'});
 }
 
 // Handle User create on POST
@@ -41,13 +41,12 @@ exports.userCreatePost = function(req, res, next) {
     }),
     password,
     function(err, account) {
-        console.log('wtf has errored');
         if (err) {
-            console.log(err);
+            console.log('Registration Error Occured: ' + err);
             return res.render('register', {account: account});
         }
         passport.authenticate('local')(req, res, function() {
-            console.log('registration has not errored');
+            console.log('Registration Succeeded.');
             res.redirect('/');
         });
     });
@@ -77,9 +76,14 @@ exports.userDeletePost = function(req, res, next) {
  * User session operations
  */
 exports.userLoginGet = function(req, res, next) {
-    res.render('login', {user: req.user});
+    res.render('login', {title: 'Login'});
 }
 
 exports.userLoginPost = function(req, res, next) {
+    res.redirect('/');
+}
+
+exports.userLogout = function(req, res, next) {
+    req.logout();
     res.redirect('/');
 }

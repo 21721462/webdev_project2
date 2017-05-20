@@ -39,6 +39,9 @@ router.get('/login', userController.userLoginGet);
 // POST request for logging in
 router.post('/login', passport.authenticate('local'), userController.userLoginPost);
 
+// GET request for logging out
+router.get('/logout', userController.userLogout);
+
 // Add more as they are being used
 
 module.exports = router;

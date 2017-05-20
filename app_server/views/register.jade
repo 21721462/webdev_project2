@@ -1,52 +1,52 @@
 extends layout
 
 block content
-    .regcontainer.shadow
-        .register.shadow
-            form(action='/register', method='POST', onsubmit='return validateForm()')
-                fieldset
-                    legend Register
-                    label Name:
-                    br
-                    input(type='text', name='name', min='3', max='10', required)
-                    br
-                    br
-                    label Username:
-                    br
-                    input(type='text', name='username', min='3', max='10', required)
-                    br
-                    br
-                    label Password:
-                    br
-                    input(type='password', name='password', min='6', max='12', required)
-                    button(type='button', onclick='showPassword()') Toggle Password
-                    br
-                    br
-                    label Confirm Password:
-                    br
-                    input(type='password', name='confirm-password', required)
-                    br
-                    br
-                    label Email Address:
-                    br
-                    input(type='email', name='email', required)
-                    br
-                    br
-                    label Age:
-                    input(type='date', name='age', min='1900-01-01', max='2003-01-01' required)
-                    br
-                    br
-                    label Location:
-                    br
-                    br
-                    select(name='location')
-                        option(value='America') Americas
-                        option(value='Europe') Europe
-                        option(value='Asia') Asia
-                        option(value='Oceania') Oceania
-                        option(value='Africa') Africa
-                    br
-                    br
-                    input(type='submit' value='Submit')
-                    input(type='reset' value='Reset')
-                script(src='javascripts/validate.js', type='text/javascript')
+	.register.shadow
+		form(action='/register', method='POST', onsubmit='return validateForm()')
+			fieldset
+				legend #[strong Register]
+				label Name
+				br
+				input(type='text', name='name', min='3', max='10', required)
+				br
+				br
+				label Username
+				br
+				input(type='text', name='username', min='3', max='10', required)
+				br
+				br
+				label Password
+				br
+				input(type='password', name='password', min='6', max='12', required)
+				button(type='button', onclick='showPassword()') Toggle Password
+				br
+				br
+				label Confirm Password
+				br
+				input(type='password', name='confirm-password', required)
+				br
+				br
+				label Email Address
+				br
+				input(type='email', name='email', required)
+				br
+				br
+				label Age
+				br
+				input(type='date', name='age', min='1900-01-01', max='2003-01-01' required)
+				br
+				br
+				label Location
+				br
+				br
+				select(name='location')
+					option(value='America') Americas
+					option(value='Europe') Europe
+					option(value='Asia') Asia
+					option(value='Oceania') Oceania
+					option(value='Africa') Africa
+				br
+				br
+				input(type='submit' value='Submit')
+				input(type='reset' value='Reset')
+		script(src='javascripts/validate.js', type='text/javascript')

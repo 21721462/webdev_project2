@@ -1,14 +1,27 @@
+html {
+	height: 100%;
+}
+
 body {
 	background-image: url(../images/backg.jpg);
 	background-size: 100%;	
 	min-width: 960px;
-	margin:0 ;
+	margin: 0;
 	height: 100%;
 	width: 100%;
+
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
 }
 
 section {
 	min-height: 85vh;
+}
+
+.sticky-footer-wrapper {
+	flex: 1;
 }
 
 /* FOOTER BAR */
@@ -35,7 +48,7 @@ footer li {
 footer li a{
 	display: block;
     color: black;
-    font-size:10px;
+    font-size: 10px;
     text-align: bottom;
     padding: 14px 16px;
     text-decoration: none;
@@ -46,22 +59,19 @@ footer li a:hover {
 	background-color: rgba(25,25,112,0.7);
 }
 
+
+
 /* TIME element arrangment */
 
 #time, #modtime {
-	float:right;
+	float: right;
 	border-radius: 2px;
 	display: block;
     color: black;
     margin-top: 5px;
-    font-size:10px;
+    font-size: 10px;
     text-align: bottom;
     padding: 10px;
-    background-color: rgba(25,25,112,0.2);
-    font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
-    -ms-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	-moz-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
 }
 
 /*Global shadow property*/
@@ -72,7 +82,7 @@ footer li a:hover {
 	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
 }
 
-/* * *
+/**
  * Navigation Bar Logo Styles
  * Provides shadows and positioning for
  * the logo in the nav bar.
@@ -84,14 +94,9 @@ footer li a:hover {
 
 #barlogo img {
 	width: 40px;
-	/*-ms-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	-moz-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	-webkit-filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));
-	filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.7));*/
-
 }
 
-/* * *
+/**
  * Navigation Bar Styles
  * Provides a consistent nav bar interface
  * on each page.
@@ -143,7 +148,7 @@ nav h2 {
 	border-radius: 10px;
 }
 
-/* * *
+/**
  * Navigation Bar Drop Down Styles
  * Provides the styles for a drop down
  * menu for the users account/
@@ -159,8 +164,7 @@ nav h2 {
 	position: absolute;
 	min-width: 200px;
 	background-color: rgb(245, 245, 245);
-	margin-top: 65px;
-	margin-left: -75px;
+	margin-top: 66px;
 }
 
 .dropdown-content a {
@@ -200,7 +204,7 @@ nav h2 {
 	position: relative;
 	margin-top:-19%;
 	margin-left: 30%;
-	font-size: 55px;
+	font-size: 56px;
 	color: black;
 	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
 	border-bottom: solid black;
@@ -255,14 +259,12 @@ nav h2 {
 	margin-top: 20px;
 }
 
-
 .slideshow {
   max-width: 1000px;
   position: relative;
   margin: auto;
   margin-bottom: 10px;
 }
-
 
 .left, .right {
   cursor: pointer;
@@ -281,17 +283,14 @@ nav h2 {
   border-radius: 0 5px 5px 0;
 }
 
-
 .right {
   right: 0;
   border-radius: 3px 0 0 3px;
 }
 
-
 .left:hover, .right:hover {
   background-color: rgba(0,0,0,0.8);
 }
-
 
 .slideitem p {
 	color: white;
@@ -446,26 +445,35 @@ nav h2 {
 	padding-right: 10px;
 }
 
-/*REGISTER*/
-
-.regcontainer {
-	margin-top: 5%;
-	font-size: 20px;
-	margin-bottom: 10px;
+/**
+ * Login and Register page styling rules
+ */
+.login, .register {
+	margin-top: 100px;
+	margin-bottom: 20px;
 }
 
-input
-{
+.login input, .register input {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.login {
+	width: 30%;
+	margin-left: 35%;
+}
+
+.register {
+	width: 40%;
+	margin-left: 30%;
+}
+
+input {
 	padding: 10px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 2px solid rgb(119,136,153);
     border-radius: 4px;   
-}
-
-.login {
-	margin-left: 10%;
-	float:left;
 }
 
 input:focus {
@@ -480,29 +488,13 @@ select {
     width: 100%
 }
 
-.register {
-	max-width: 50%;
-	margin-left: 40%
-
-}
-
-.register input[type=text], .register input[type=date], .register input[type=email], .register input[type=password]{
-	width: 90%;
-}
-
 button, input[type=button], input[type=submit], input[type=reset] {
     background-color: rgb(102, 204, 255);
-    border: solid;
-    border-color: black;
+    border: 1px solid black;
     color: white;
-    padding: 16px 32px;
+    padding: 10px 20px;
     margin: 4px 2px;
     cursor: pointer;
-}
-
-input[type="checkbox"] {
-	cursor:pointer;
-	margin-left: 5px;
 }
 
 button:hover, input[type=submit]:hover, input[type=reset]:hover {
@@ -510,9 +502,8 @@ button:hover, input[type=submit]:hover, input[type=reset]:hover {
 }
 
 fieldset {
-	border-radius: 30px;
+	border-radius: 20px;
 	background-color: rgb(112,128,144);
-	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
 }
 
 /* FRIENDS */
