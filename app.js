@@ -5,9 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var home = require('./app_server/routes/home');
+var gamenode = require('./app_server/routes/gamenode');
 
 var app = express();
+
+// Set up the mongo database
+var mongoose = require('mongoose');
+var mongoDatabase = 'mongodb://gnuser:gn123@ds133961.mlab.com:33961/gamenodedb';
+mongoose.connect(mongoDatabase);
+var database = mongoose.connection;
+database.on('connected', console.log.bind(console, 'MongoDB connected.'));
+database.on('error', console.error.bind(console, 'MongoDB connection error.'));
+database.on('disconnected', console.log.bind(console, 'MongoDB disconnected.'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
@@ -21,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', home);
+app.use('/', gamenode);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

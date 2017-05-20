@@ -2,12 +2,13 @@ doctype html
 html
 	head
 		title=title
+		meta(charset='utf-8')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
 		// The header content
 		nav
 			if (!user)
-				a#login(href='/register') Login/Register
+				a#login(href='/register') Register/Login
 			else
 				.dropdown
 					a(href='/profile') #{user.name}
@@ -17,8 +18,8 @@ html
 						a(href='#') Account Settings
 						a(href='#') Log Out
 			a(href='/about') About Us
-			a(href='/games') Games
-			a(href='/friends') Friends
+			//a(href='/games') Games
+			//a(href='/friends') Friends
 			a.current(href='/') Home
 			a#barlogo(href='/')
 				img(src='images/logo.png', alt='Main Logo')
@@ -32,12 +33,14 @@ html
 			ul
 				li
 					a(href='/') Home
-				li
+				//li
 					a(href='/friends') Friends
-				li
+				//li
 					a(href='/games') Games
 				li
 					a(href='/about') About Us
+				li
+					a(href='/register') Register/Login
 				li#time
 				li#modtime
 			script(src='javascripts/footer.js', type='text/javascript')

@@ -1,10 +1,12 @@
+/**
+ * The model for defining a game.
+ */
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var gameSchema = new mongoose.Schema(
-{
-	GameID: Number,
-	GameName: String,
-	
+var GameSchema = Schema({
+	name: {type: String, required: true},
+	description: {type: String, required: true}
 });
 
-mongoose.model('Game', gameSchema, 'games');
+mongoose.model('Game', GameSchema);

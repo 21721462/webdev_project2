@@ -8,13 +8,13 @@ block content
                     legend Login
                     label Username:
                     br
-                    input(type='text' min='3' max='10' required)
+                    input(type='text', name='login-username', min='3', max='10', required)
                     br
                     label Password:
                     br
-                    input(type='password' min='6' max='12' required)
+                    input(type='password', name='login-password', min='6', max='12', required)
                     br
-                    input(type='submit' value='Submit')
+                    input(type='submit', value='Submit')
                     input(type='reset', value='Reset')
         .register.shadow
             form(onsubmit='return validateForm()')
@@ -22,27 +22,27 @@ block content
                     legend Register
                     label Username:
                     br
-                    input(type='text' name='uname' required)
+                    input(type='text', name='username', required)
                     br
                     br
                     label Password:
                     br
-                    input(type='password' name='pword' required)
-                    button(type='button' onclick='showPassword()') Toggle Password
+                    input(type='password', name='password', required)
+                    button(type='button', onclick='showPassword()') Toggle Password
                     br
                     br
                     label Confirm Password:
                     br
-                    input(type='password' name='pword' required)
+                    input(type='password', name='confirm-password', required)
                     br
                     br
                     label Email Address:
                     br
-                    input(type='email' name='email' required)
+                    input(type='email', name='email', required)
                     br
                     br
                     label Age:
-                    input(type='date', name='age', min='1900-01-01' max='2003-01-01' required)
+                    input(type='date', name='age', min='1900-01-01', max='2003-01-01' required)
                     br
                     br
                     label Location:
