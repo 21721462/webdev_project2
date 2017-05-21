@@ -14,10 +14,9 @@ To run this feature execute the command:
 - For linux/mac: DEBUG=gamenode:* & npm run devstart
 
 Session support and user accounts are now working.
-You can log in using either my credentials:
+You can log in using either my credentials or feel free to register your own account.
 - Username: satti
 - Password: password
-or feel free to register your own account.
 
 If you need access to mLab:
 - Username: gnuseradmin
