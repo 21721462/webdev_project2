@@ -2,7 +2,7 @@ extends layout
 
 block content
 	.register.shadow
-		form(action='/register', method='POST', onsubmit='return validateForm()')
+		form(action='', method='POST', onsubmit='return validateForm()')
 			fieldset
 				legend #[strong Register]
 				label Name
@@ -49,4 +49,4 @@ block content
 				br
 				input(type='submit' value='Submit')
 				input(type='reset' value='Reset')
-		script(src='javascripts/validate.js', type='text/javascript')
+		script(src='/javascripts/validate.js', type='text/javascript')

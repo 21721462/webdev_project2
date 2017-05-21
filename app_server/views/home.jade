@@ -2,35 +2,35 @@ extends layout
 
 block content
 	.logoitem.shadow
-		a(href='/login')
+		a(href='/register')
 			h2.shadow.grow Register Now!
 		br
-		img.shadow(src='images/controller.png', alt='Controller')
+		img.shadow(src='/images/controller.png', alt='Controller')
 		h1 GET PLAYING
 		p.shadow Game Node is a platform that connects gamers all over the world. 
 			| Our #[strong dynamic] matchmaking system will match you with players of simmilar rank.
 	
 	.boxes.shadow
 		.one
-			img.shadow(src='images/users.png', alt='User Icon')
+			img.shadow(src='/images/users.png', alt='User Icon')
 			p Dynamic community connected with live chatrooms.
 		.two
-			img.shadow(src='images/rank.png', alt='Rank Icon')
+			img.shadow(src='/images/rank.png', alt='Rank Icon')
 			p Advanced ranking system with matchmaking capabilities.
 		.three
-			img.shadow(src='images/server.png', alt='Server Icon')
+			img.shadow(src='/images/server.png', alt='Server Icon')
 			p Dedicated servers with high tickrates and low pings.
 			
 	.slideshow.shadow
 		.slideitem.transition
-			img(src='images/dota2.jpg', alt='Dota 2')
+			img(src='/images/dota2.jpg', alt='Dota 2')
 			p DOTA 2
 		.slideitem.transition
-			img(src='images/csgo.jpg', alt='csgo')
+			img(src='/images/csgo.jpg', alt='csgo')
 			p CS:GO
 		.slideitem.transition
-			img(src='images/overwatch.jpg', alt='overwatch')
+			img(src='/images/overwatch.jpg', alt='overwatch')
 			p Overwatch
-		script(src='javascripts/slides.js', type='text/javascript')
+		script(src='/javascripts/slides.js', type='text/javascript')
 		a.left(onclick='leftButton()') &#8678;
 		a.right(onclick='rightButton()') &#8680;

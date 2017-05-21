@@ -16,6 +16,25 @@ var UserSchema = Schema({
 	gameRanks: [{type: Schema.ObjectId, ref: 'GameRank'}]
 });
 
+UserSchema.virtual('profile').get(function() {
+	return '/' + this._id;
+})
+
+UserSchema.virtual('settings').get(function() {
+	return '/' + this._id + '/settings';
+})
+
+UserSchema.virtual('dob').get(function() {
+	var day = this.age.getDate();
+	var month = this.age.getMonth() + 1;
+	var year = this.age.getFullYear();
+
+	if (day < 10) day = '0' + day;
+	if (month < 10) month = '0' + month;
+
+	return year + '-' + month + '-' + day;
+})
+
 UserSchema.plugin(passportLocal);
 
 module.exports = mongoose.model('User', UserSchema);

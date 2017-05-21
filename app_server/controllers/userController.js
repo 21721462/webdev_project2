@@ -2,26 +2,28 @@
  * CRUD operations for the User model.
  */
 
+var fs = require('fs');
+var path = require('path');
 var passport = require('passport');
 var User = require('../models/user');
 
-// Display details page for a specific user
-exports.userDetails = function(req, res, next) {
-    res.send('NOT IMPLEMENTED: User details');
+// Display the home page
+exports.homePageGet = function(req, res, next) {
+    res.render('home', {title: 'Game Node', user: req.user});
 }
 
-// Display details page for list of users
-exports.userList = function(req, res, next) {
-    res.send('NOT IMPLEMENTED: User list');
+// Display the about page
+exports.aboutPageGet = function(req, res, next) {
+    res.render('about', {title: 'About', user: req.user});
 }
 
-// Display User create form on GET
-exports.userCreateGet = function(req, res, next) {
+// Display the register page
+exports.registerPageGet = function(req, res, next) {
     res.render('register', {title: 'Register'});
 }
 
-// Handle User create on POST
-exports.userCreatePost = function(req, res, next) {
+// Handle POST on register page
+exports.registerPagePost = function(req, res, next) {
     // Get all the required information
     var name = req.body.name;
     var username = req.body.username;
@@ -52,38 +54,48 @@ exports.userCreatePost = function(req, res, next) {
     });
 }
 
-// Display User update form on GET
-exports.userUpdateGet = function(req, res, next) {
-    res.send('NOT IMPLEMENTED: User update GET');
+// Display the user settings page
+exports.userSettingsPageGet = function(req, res, next) {
+    res.render('userSettings', {title: 'User Settings', user: req.user});
 }
 
-// Handle User update on POST
-exports.userUpdatePost = function(req, res, next) {
-    res.send('NOT IMPLEMENTED: User update POST');
+// Handle POST on user settings page
+exports.userSettingsPagePost = function(req, res, next) {
+    // Get all the required information
+    var name = req.body.name;
+    var username = req.body.username;
+    var age = req.body.age;
+    var location = req.body.location;
+
+    var user = new User({
+        _id: req.params.id, // required, otherwise new object made
+        name: name,
+        username: username,
+        age: age,
+        location: location
+    });
+
+    User.findByIdAndUpdate(req.params.id, user, {}, function(err, user) {
+        if (err) {
+            console.error('User could not be updated');
+            return next(err);
+        }
+        res.redirect('/');
+    })
 }
 
-// Display User delete form on GET
-exports.userDeleteGet = function(req, res, next) {
-    res.send('NOT IMPLEMENTED: User delete GET');
-}
-
-// Handle User delete on POST
-exports.userDeletePost = function(req, res, next) {
-    res.send('NOT IMPLEMENTED: User delete POST');
-}
-
-/**
- * User session operations
- */
-exports.userLoginGet = function(req, res, next) {
+// Display the login page
+exports.loginPageGet = function(req, res, next) {
     res.render('login', {title: 'Login'});
 }
 
-exports.userLoginPost = function(req, res, next) {
+// Handle POST on the login page
+exports.loginPagePost = function(req, res, next) {
     res.redirect('/');
 }
 
-exports.userLogout = function(req, res, next) {
+// Display home page on user logout
+exports.logout = function(req, res, next) {
     req.logout();
     res.redirect('/');
 }

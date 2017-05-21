@@ -12,3 +12,13 @@ don't have to constantly stop and start it.
 To run this feature execute the command:
 - For windows: set DEBUG=gamenode:* & npm run devstart
 - For linux/mac: DEBUG=gamenode:* & npm run devstart
+
+Session support and user accounts are now working.
+You can log in using either my credentials:
+- Username: satti
+- Password: password
+or feel free to register your own account.
+
+If you need access to mLab:
+- Username: gnuseradmin
+- Password: gnuser123

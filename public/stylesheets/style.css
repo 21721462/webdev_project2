@@ -448,12 +448,12 @@ nav h2 {
 /**
  * Login and Register page styling rules
  */
-.login, .register {
-	margin-top: 100px;
+.login, .register, .settings {
+	margin-top: 120px;
 	margin-bottom: 20px;
 }
 
-.login input, .register input {
+.login input, .register input, .settings input {
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -466,6 +466,11 @@ nav h2 {
 .register {
 	width: 40%;
 	margin-left: 30%;
+}
+
+.settings {
+	width: 50%;
+	margin-left: 25%;
 }
 
 input {
