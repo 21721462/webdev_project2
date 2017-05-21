@@ -5,7 +5,9 @@
 var fs = require('fs');
 var path = require('path');
 var passport = require('passport');
+var multer = require('multer');
 var User = require('../models/user');
+var uploads = __dirname + './../../public/uploads/';
 
 // Display the home page
 exports.homePageGet = function(req, res, next) {
@@ -61,6 +63,22 @@ exports.userSettingsPageGet = function(req, res, next) {
 
 // Handle POST on user settings page
 exports.userSettingsPagePost = function(req, res, next) {
+    var avatar;
+    if (req.file) {
+        avatar = path.resolve(uploads + req.params.id + '.png');
+        console.log('userSettingsPagePost: ' + avatar);
+        fs.rename(req.file.path, avatar, function(err) {
+            if (err) {
+                console.log(err);
+                res.redirect('/');
+            }
+        });
+    } else if (req.user.avatar) {
+        avatar = req.user.avatar;
+    } else {
+        avatar = null;
+    }
+
     // Get all the required information
     var name = req.body.name;
     var username = req.body.username;
@@ -71,6 +89,7 @@ exports.userSettingsPagePost = function(req, res, next) {
         _id: req.params.id, // required, otherwise new object made
         name: name,
         username: username,
+        avatar: avatar,
         age: age,
         location: location
     });
@@ -82,6 +101,13 @@ exports.userSettingsPagePost = function(req, res, next) {
         }
         res.redirect('/');
     })
+}
+
+// Return the avatar
+exports.avatarGet = function(req, res, next) {
+    var file = path.resolve(uploads + req.user._id + '.png');
+    console.log(file);
+    res.sendFile(file);
 }
 
 // Display the login page

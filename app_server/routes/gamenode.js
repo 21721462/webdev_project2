@@ -4,7 +4,9 @@
 
 var express = require('express');
 var passport = require('passport');
+var multer = require('multer');
 var router = express.Router();
+var upload = multer({dest: __dirname + '/../../public/uploads/'});
 
 // Get the required controllers
 var userController = require('../controllers/userController');
@@ -32,7 +34,10 @@ router.post('/register', userController.registerPagePost);
 router.get('/:id/settings', userController.userSettingsPageGet);
 
 // POST request for the user settings page
-router.post('/:id/settings', userController.userSettingsPagePost);
+router.post('/:id/settings', upload.single('avatar'), userController.userSettingsPagePost);
+
+// GET request for getting the avatar
+router.get('/avatar', userController.avatarGet);
 
 // GET request for the login page
 router.get('/login', userController.loginPageGet);
