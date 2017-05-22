@@ -30,11 +30,14 @@ router.get('/register', userController.registerPageGet);
 // POST request for the register page
 router.post('/register', userController.registerPagePost);
 
+// GET request for the user profile page
+router.get('/profile', userController.userProfilePageGet);
+
 // GET request for the user settings page
-router.get('/:id/settings', userController.userSettingsPageGet);
+router.get('/profile/settings', userController.userSettingsPageGet);
 
 // POST request for the user settings page
-router.post('/:id/settings', upload.single('avatar'), userController.userSettingsPagePost);
+router.post('/profile/settings', upload.single('avatar'), userController.userSettingsPagePost);
 
 // GET request for getting the avatar
 router.get('/avatar', userController.avatarGet);

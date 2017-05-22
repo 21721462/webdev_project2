@@ -56,6 +56,11 @@ exports.registerPagePost = function(req, res, next) {
     });
 }
 
+// Display the user profile page
+exports.userProfilePageGet = function(req, res, next) {
+    res.render('profile', {title: 'Profile', user: req.user});
+}
+
 // Display the user settings page
 exports.userSettingsPageGet = function(req, res, next) {
     res.render('userSettings', {title: 'User Settings', user: req.user});

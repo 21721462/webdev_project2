@@ -14,10 +14,10 @@ html
 						a(href='/login') Login
 					else
 						.dropdown
-							a(href=user.profile) #{user.name}
+							a(href='/profile') #{user.name}
 							.dropdown-content
-								a(href=user.profile) User Profile
-								a(href=user.settings) User Settings
+								a(href='/profile') User Profile
+								a(href='/profile/settings') User Settings
 								a(href='/logout') Log Out
 						a(href='/games') Games
 						a(href='/friends') Friends
@@ -36,7 +36,7 @@ html
 					li
 						a(href='/games') Games
 					li
-						a(href=user.profile) #{user.name}
+						a(href='/profile') #{user.name}
 				else
 					li
 						a(href='/login') Login

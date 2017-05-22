@@ -1,24 +1,5 @@
 extends layout 
 
-block header
-	nav
-		ul
-			li#login
-				a(href='register.html') Login/Register
-			li
-				a(href='about.html') About Us
-			li
-				a(href='games.html') Games
-			li
-				a(href='friends.html') Friends
-			li.current
-				a(href='main.html') Home
-			li#barlogo
-				a(href='main.html')
-					img(src='images/logo.png', alt='Main Logo')
-			li#maintitle
-				h2 Game Node
-
 block content
 	.description.shadow
 		img(src=user.avatar)
