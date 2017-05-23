@@ -20,12 +20,23 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
+io.on('connection', function(socket) {
+  socket.on('join', function(data) {
+    socket.join(data.id);
+  });
+  socket.on('new_message', function(data) {
+    alert(data.message);
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function() {
+  console.log('Listening on *:' + port);
+});
 server.on('error', onError);
 server.on('listening', onListening);
 
