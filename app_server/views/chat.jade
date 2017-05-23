@@ -18,15 +18,16 @@ block content
     script(src='/socket.io/socket.io.js')
     script(src='https://code.jquery.com/jquery-1.11.1.js')
     script.
-        $(function() { 
+        $(function() {
             var socket = io();
             socket.emit('join', {id: '#{user.id}'});
-            $('form').submit(function () { 
-                io.sockets.in('#{user.id}').emit('', $('#m').val()); 
-                $('#m').val(''); 
+            $('form').submit(function() {
+                var msg = $('#m').val();
+                socket.emit('send', {to: '#{friend.id}', message: msg});
+                $('#m').val('');
                 return false;
             });
-            socket.on('chat message', function(msg) {
-                $('#messages').append($('<li>').text(msg));
+            socket.on('receive', function(message) {
+                $('#messages').append($('<li>').text(message));
             });
         });

@@ -16,7 +16,7 @@ exports.homePageGet = function(req, res, next) {
 
 // Display the about page
 exports.aboutPageGet = function(req, res, next) {
-    res.render('chat', {title: 'About', user: req.user});
+    res.render('about', {title: 'About', user: req.user});
 }
 
 // Display the register page
