@@ -39,5 +39,7 @@ block content
 				br
 				br
 				input(type='submit' value='Save Changes')
+				if (error)
+					p.error #{error}
 		script(src='/javascripts/userSettings.js', type='text/javascript')
 		script setSelected('#{user.location}');

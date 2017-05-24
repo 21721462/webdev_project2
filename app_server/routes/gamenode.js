@@ -46,7 +46,7 @@ router.get('/avatar', userController.avatarGet);
 router.get('/login', userController.loginPageGet);
 
 // POST request for the login page
-router.post('/login', passport.authenticate('local'), userController.loginPagePost);
+router.post('/login', userController.loginPagePost);
 
 // GET request for logging out
 router.get('/logout', userController.logout);

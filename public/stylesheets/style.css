@@ -610,3 +610,8 @@ fieldset {
     margin: 4px 2px;
     font-size: 26px;
 }
+
+.error {
+	color: darkred;
+	text-align: center;
+}
