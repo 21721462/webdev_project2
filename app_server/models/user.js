@@ -9,7 +9,7 @@ var UserSchema = Schema({
 	username: {type: String, unique: true, required: true},
 	name: {type: String, required: true},
 	email: {type: String, unique: true, required: true},
-	avatar: {type: String},
+	avatar: {data: Buffer, contentType: String},
 	age: {type: Date, required: true},
 	location: {type: String, required: true},
 	globalRank: {type: Number},

@@ -8,7 +8,6 @@ var passport = require('passport');
 var multer = require('multer');
 var validator = require('validator');
 var User = require('../models/user');
-var uploads = __dirname + './../../public/uploads/';
 
 // Display the home page
 exports.homePageGet = function(req, res, next) {
@@ -111,19 +110,10 @@ exports.profilePageGet = function(req, res, next) {
 
 // Handle POST on the user profile page
 exports.profilePagePost = function(req, res, next) {
-    // Upload the avatar
-    var avatar;
+    var avatar = req.user.avatar;
     if (req.file) {
-        avatar = path.resolve(uploads + req.user._id + '.png');
-        fs.rename(req.file.path, avatar, function(err) {
-            if (err) {
-                next(err);
-            }
-        });
-    } else if (req.user.avatar) {
-        avatar = req.user.avatar;
-    } else {
-        avatar = null;
+        avatar.data = fs.readFileSync(req.file.path);
+        avatar.contentType = 'image/png';
     }
     
     // Clean the name field
@@ -164,14 +154,11 @@ exports.profilePagePost = function(req, res, next) {
         location: location
     });
 
-    console.log(user);
-
     User.findByIdAndUpdate(req.user._id, user, {}, function(err, user) {
         if (err) {
             console.error('User could not be updated');
             return next(err);
         }
-        console.log("User updated: " + user);
         res.redirect('/');
     });
 }
@@ -217,8 +204,8 @@ exports.settingsPagePost = function(req, res, next) {
 
 // Return the avatar
 exports.avatarGet = function(req, res, next) {
-    var file = path.resolve(uploads + req.user._id + '.png');
-    res.sendFile(file);
+    res.contentType(req.user.avatar.contentType);
+    res.end(req.user.avatar.data);
 }
 
 // Display the login page
