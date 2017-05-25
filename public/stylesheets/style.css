@@ -754,3 +754,8 @@ legend {
   color: black;
   font-size: 25px;
 }
+
+.error {
+	color: darkred;
+	text-align: center;
+}

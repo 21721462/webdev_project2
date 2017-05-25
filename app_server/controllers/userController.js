@@ -101,24 +101,20 @@ exports.registerPagePost = function(req, res, next) {
 }
 
 // Display the user profile page
-exports.userProfilePageGet = function(req, res, next) {
-    res.render('profile', {title: 'Profile', user: req.user});
-}
-
-// Display the user settings page
-exports.userSettingsPageGet = function(req, res, next) {
+exports.profilePageGet = function(req, res, next) {
     // Get error message if present
-    var message = req.session.settingsError;
-    req.session.settingsError = null;
+    var message = req.session.profileError;
+    req.session.profileError = null;
 
-    res.render('userSettings', {title: 'User Settings', user: req.user, error: message});
+    res.render('editUser', {title: 'Profile', user: req.user, error: message});
 }
 
-// Handle POST on user settings page
-exports.userSettingsPagePost = function(req, res, next) {
+// Handle POST on the user profile page
+exports.profilePagePost = function(req, res, next) {
+    // Upload the avatar
     var avatar;
     if (req.file) {
-        avatar = path.resolve(uploads + req.params.id + '.png');
+        avatar = path.resolve(uploads + req.user._id + '.png');
         fs.rename(req.file.path, avatar, function(err) {
             if (err) {
                 next(err);
@@ -129,25 +125,25 @@ exports.userSettingsPagePost = function(req, res, next) {
     } else {
         avatar = null;
     }
-
+    
     // Clean the name field
     var name = req.body.name;
     if (!(name.length >= 3 && name.length <= 100)) {
-        req.session.settingsError = 'Name must be between 3 and 100 characters.';
+        req.session.profileError = 'Name must be between 3 and 100 characters.';
         return res.redirect('back');
     }
     
     // Clean the username field
     var username = req.body.username;
     if (!(username.length >= 3 && username.length <= 100)) {
-        req.session.settingsError = 'Username must be between 3 and 100 characters.';
+        req.session.profileError = 'Username must be between 3 and 100 characters.';
         return res.redirect('back');
     }
 
     // Clean the age field
     var age = req.body.age;
     if (!validator.toDate(age)) {
-        req.session.settingsError = 'Please provide a valid date of birth.';
+        req.session.profileError = 'Please provide a valid date of birth.';
         return res.redirect('back');
     }
 
@@ -155,12 +151,12 @@ exports.userSettingsPagePost = function(req, res, next) {
     var location = req.body.location;
     if (!(location === 'America' || location === 'Europe' ||
           location === 'Asia' || location === 'Oceania' || location === 'Africa')) {
-        req.session.settingsError = 'Please provide a valid location.';
+        req.session.profileError = 'Please provide a valid location.';
         return res.redirect('back');
     }
 
     var user = new User({
-        _id: req.params.id, // required, otherwise new object made
+        _id: req.user._id, // required, otherwise new object made
         name: name,
         username: username,
         avatar: avatar,
@@ -168,8 +164,51 @@ exports.userSettingsPagePost = function(req, res, next) {
         location: location
     });
 
-    User.findByIdAndUpdate(req.params.id, user, {}, function(err, user) {
+    console.log(user);
+
+    User.findByIdAndUpdate(req.user._id, user, {}, function(err, user) {
         if (err) {
+            console.error('User could not be updated');
+            return next(err);
+        }
+        console.log("User updated: " + user);
+        res.redirect('/');
+    });
+}
+
+// Display the user settings page
+exports.settingsPageGet = function(req, res, next) {
+    // Get error message if present
+    var message = req.session.settingsError;
+    req.session.settingsError = null;
+
+    res.render('editAccountDetails', {title: 'User Settings', user: req.user, error: message});
+}
+
+// Handle POST on user settings page
+exports.settingsPagePost = function(req, res, next) {
+    // Get all the required information
+    // Clean the email field
+    var email = req.body.email;
+    if (!validator.isEmail(email)) {
+        req.session.registerError = 'Please provide a valid email address.';
+        return res.redirect('back');
+    }
+
+    // Set password
+    var password = req.body.password;
+    req.user.setPassword(password, function() {
+        req.user.save();
+    });
+
+    var user = new User({
+        _id: req.user._id, // required, otherwise new object made
+        email: email,
+    });
+
+    User.findByIdAndUpdate(req.user._id, user, {}, function(err, user) {
+        if (err) {
+            console.error('User could not be updated');
             return next(err);
         }
         res.redirect('/');
@@ -217,7 +256,6 @@ exports.logout = function(req, res, next) {
     req.logout();
     res.redirect('/');
 }
-
 
 // handles the match making algorithm function.
 /*

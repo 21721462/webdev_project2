@@ -31,13 +31,16 @@ router.get('/register', userController.registerPageGet);
 router.post('/register', userController.registerPagePost);
 
 // GET request for the user profile page
-router.get('/profile', userController.userProfilePageGet);
+router.get('/profile', userController.profilePageGet);
+
+// POST request for the user profile poage
+router.post('/profile',  upload.single('avatar'), userController.profilePagePost);
 
 // GET request for the user settings page
-router.get('/profile/settings', userController.userSettingsPageGet);
+router.get('/profile/settings', userController.settingsPageGet);
 
 // POST request for the user settings page
-router.post('/profile/settings', upload.single('avatar'), userController.userSettingsPagePost);
+router.post('/profile/settings', userController.settingsPagePost);
 
 // GET request for getting the avatar
 router.get('/avatar', userController.avatarGet);

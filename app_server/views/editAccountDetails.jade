@@ -3,7 +3,7 @@ extends layout
 block content
     .editUserContainer.shadow
       if(user.avatar)
-        img#userImage(src='/images/users.png', alt="user-image")
+        img#userImage(src='/avatar', alt="user-image")
       else
         img#userImage(src='/images/users.png', alt="user-image")
       br
@@ -30,9 +30,9 @@ block content
           br
           input(type='password', name='confpassword', placeholder="Confirm Password")
           br
-          input(type="hidden" name="username" value="#{user.username}")
-          input(type="hidden" name="location" value="#{user.location}")
           input(type='submit' value='Submit')
           input(type='reset', value='Reset')
+          if (error)
+            p.error #{error}
       script(src='/javascripts/userSettings.js', type='text/javascript')
         
