@@ -4,22 +4,30 @@ block content
 	.defaultbanner.shadow
 		h1 FRIENDS
 		p.shadow Here you can add new friends and chat with old ones. 
+		p.shadow Find friends using our 
+			a(href='/matchmaker') Matchmaker
 
 	.friendsearch.shadow
 		form
-			lable(for='friendName') Friend's Username: 
-			input#friendadd(type='text', name = 'friendName')
-			input(type='submit', name = 'submit')
+			label(for='friendName') Friend's Username: 
+			input#friendadd(type='text', name='friendName')
+			input(type='submit', name='submit')
 
 	.friendslist
-		form
-			input#friendsearch
-			
+		p Here you can view your friends
 		ul#friendlist
-			each pal in '#{friendUsers}'
-				if pal.status == 'accepted'
+			each friend in friends 
+				if friend.status == 'accepted'
 					li
-						img(src=pal.avatar)
+						img(src=friend.avatar)
 						p pal.friend.username
 						p pal.friend.globalrank
 						a(href='/delete/'+ pal.friend.username) Remove Friend
+		p Here you can view any friend requests
+		ul
+			each request in friends
+				if request.status == 'pending'
+					li
+						img(src=friend.avatar)
+						a(href='/accept/' + request.friend.username)
+						

@@ -61,6 +61,9 @@ router.get('/logout', userController.logout);
 // GET request for the friends page
 router.get('/friends', friendsController.friendsPageGet);
 
+// GET request for the matchmaker page
+router.get('/matchmaker', friendsController.matchmakerPageGet);
+
 // GET request for the chat page
 router.get('/chat', friendsController.chatPageGet);
 

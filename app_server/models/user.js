@@ -2,6 +2,7 @@
  * The model for defining a user.
  */
 var mongoose = require('mongoose');
+var friends = require('mongoose-friends');
 var passportLocal = require('passport-local-mongoose');
 var Schema = mongoose.Schema;
 
@@ -36,5 +37,6 @@ UserSchema.virtual('dob').get(function() {
 })
 
 UserSchema.plugin(passportLocal);
+UserSchema.plugin(friends());
 
 module.exports = mongoose.model('User', UserSchema);

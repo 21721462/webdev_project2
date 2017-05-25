@@ -3,24 +3,29 @@
  */
 
 var Friends = require('../models/friends');
+var User = require('../models/user');
 
 // Display the friends page
 exports.friendsPageGet = function(req, res, next) {
-    res.render('friends', {title: 'Friends', user: req.user});
-}
-
-exports.chatPageGet = function(req, res, next) {
-    res.render('chat', {title: 'Chat', user: req.user, friend: null/*TODO: get friend object*/});
-}
-
-exports.ListFriend = function(req, res, next) {
     User.getFriends(req.user, function(err, friendships) {
         if (err) {
             return next(err);
         }
-
-        res.render('friends', {title: 'Friends', friendUsers: friendships});
+        res.render('friends', {title: 'Friends', user: req.user, friends: friendships});
     });
+}
+
+exports.acceptRequest = function(req, res, next) {
+    User.requestFriend(req.user._id, )
+}
+
+// Display the matchmaker page
+exports.matchmakerPageGet = function(req, res, next) {
+    res.render('userMatch', {title: 'Match Maker', user: req.user});
+}
+
+exports.chatPageGet = function(req, res, next) {
+    res.render('chat', {title: 'Chat', user: req.user, friend: null/*TODO: get friend object*/});
 }
 
 exports.reqFriend = function(req, res, next){
