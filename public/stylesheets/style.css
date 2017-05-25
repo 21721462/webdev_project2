@@ -4,7 +4,7 @@ html {
 
 body {
 	background-image: url(../images/backg.jpg);
-	background-size: 100%;	
+	background-size: 100%;
 	min-width: 960px;
 	margin: 0;
 	height: 100%;
@@ -88,7 +88,7 @@ footer li a:hover {
  * the logo in the nav bar.
  */
 #barlogo {
-	float: left;	
+	float: left;
 	margin-top: 5px;
 }
 
@@ -197,7 +197,7 @@ nav h2 {
 	margin-bottom: 5px;
 	margin-top: 3%;
 	margin-left:5%;
-	
+
 }
 
 .logoitem h1{
@@ -322,22 +322,22 @@ nav h2 {
 }
 
 @-ms-keyframes trans {
-  from {opacity: 0.5} 
+  from {opacity: 0.5}
   to {opacity: 1}
 }
 
 @-moz-keyframes trans {
-  from {opacity: 0.5} 
+  from {opacity: 0.5}
   to {opacity: 1}
 }
 
 @-webkit-keyframes trans {
-  from {opacity: 0.5} 
+  from {opacity: 0.5}
   to {opacity: 1}
 }
 
 @keyframes trans {
-  from {opacity: 0.5} 
+  from {opacity: 0.5}
   to {opacity: 1}
 }
 
@@ -390,15 +390,15 @@ nav h2 {
 	text-align: center;
 }
 
-.grow { 
+.grow {
 	-webkit-transition:1s ease;
   	-ms-transition:1s ease;
   	-moz-transition:1s ease;
   	transition:1s ease;
 }
-	
 
-.grow:hover 
+
+.grow:hover
 {
     -webkit-transform:scale(1.1);
 	-moz-transform:scale(1.1);
@@ -453,7 +453,7 @@ nav h2 {
 	margin-bottom: 20px;
 }
 
-.login input, .register input, .settings input {
+.login input, .register input, .settings input, .editUserContainer input {
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -478,7 +478,7 @@ input {
     margin: 8px 0;
     display: inline-block;
     border: 2px solid rgb(119,136,153);
-    border-radius: 4px;   
+    border-radius: 4px;
 }
 
 input:focus {
@@ -563,7 +563,7 @@ fieldset {
   font-size: 20px;
   padding: 8px 12px;
   border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px; 
+  border-bottom-right-radius: 10px;
   position: relative;
   bottom: 10px;
   width: 53%;
@@ -611,7 +611,146 @@ fieldset {
     font-size: 26px;
 }
 
-.error {
-	color: darkred;
-	text-align: center;
+.matchCont {
+	position:relative;
+	background-color:rgb(240,248,255);
+	padding-bottom:5px;
+	border-radius: 10px;
+	max-width: 1000px;
+	margin:auto;
+	margin-top: 100px;
+	margin-bottom: 2%;
+	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+}
+
+.matchCont img {
+	width:25%;
+	height:auto;
+	padding-bottom: 2px;
+	margin-bottom: 5px;
+	margin-top: 5%;
+	margin-left:3%;
+}
+
+.matchCont h1{
+	position: relative;
+	margin-top:-15%;
+	margin-left: 39%;
+	font-size: 40px;
+	color: black;
+	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+	border-bottom: solid black;
+	max-width: 38%;
+
+}
+
+.matDescrip {
+	margin-left: 30%;
+	padding: 20px;
+	border-radius: 10px;
+	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+	font-size: 15px;
+	}
+
+.gamelist {
+	max-width: 1000px;
+	margin-left: 10px;
+}
+
+#games {
+	width: 30%;
+	height: auto;
+	padding-bottom: 2px;
+	margin-bottom: 5px;
+	margin-top: 7%;
+	margin-left:3%;
+}
+
+.additPref {
+	width: 50%;
+	height: auto;;
+	float: right;
+	padding-bottom: 2px;
+	margin-bottom: 5px;
+	margin-top: -8%;
+	margin-left:3%;
+}
+
+#downArrow {
+	width: 30px;
+	height: auto;
+	float: right;
+	margin-right: 3px;
+	margin-left: 50px;
+
+}
+
+#fromAge {
+	padding-left: 10px;
+}
+
+#matchButn {
+	width: 300px;
+	margin-bottom: 5px;
+	margin-top: 5%;
+	margin-left: 25%;
+
+}
+
+.editUserContainer {
+	position:relative;
+	background-color:rgb(240,248,255);
+	padding-bottom:5px;
+	border-radius: 10px;
+	max-width: 1100px;
+	margin:auto;
+	margin-top: 90px;
+	margin-bottom: 2%;
+	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+}
+
+.editUserContainer h2,h3{
+	position: relative;
+	margin-left: 25%;
+	margin-top: -70px;
+	font-size: 25px;
+	color: black;
+	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+	max-width: 40%;
+
+ }
+
+ .displayDetcont {
+ 	margin-top: -110px;
+
+ }
+ #rank {
+ 	margin-top: -35px;
+ }
+
+#userImage {
+	width:20%;
+	height:auto;
+	padding-bottom: 2px;
+	margin-bottom: 5px;
+	margin-top: 5%;
+	margin-left:3%;
+	padding:1px;
+	border-radius: 25px;
+	background-position: left top;
+	background-repeat: repeat;
+
+}
+
+.editUserForm {
+	width: 70%;
+	padding-top: 30px;
+}
+
+#userDet{
+}
+
+legend {
+  color: black;
+  font-size: 25px;
 }

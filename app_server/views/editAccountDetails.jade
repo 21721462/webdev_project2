@@ -1,0 +1,38 @@
+extends layout
+
+block content
+    .editUserContainer.shadow
+      if(user.avatar)
+        img#userImage(src='/images/users.png', alt="user-image")
+      else
+        img#userImage(src='/images/users.png', alt="user-image")
+      br
+      h2 #{user.name}
+      br
+      form.editUserForm(action='', name="editAccount", method='post', onsubmit='return validateAccountDet()')
+        fieldset
+          legend #[strong Edit Account details]
+          br
+          br
+          label Email Address
+          br
+          input(type='email', name='email', placeholder="Email Address", value='#{user.email}')
+          br
+          label Confirm Email Address
+          br
+          input(type='email', name='confemail', placeholder="Confirm Email Address")
+          br
+          label Password
+          br
+          input(type='password', name='password', placeholder="Password")
+          br
+          label Confirm Password
+          br
+          input(type='password', name='confpassword', placeholder="Confirm Password")
+          br
+          input(type="hidden" name="username" value="#{user.username}")
+          input(type="hidden" name="location" value="#{user.location}")
+          input(type='submit' value='Submit')
+          input(type='reset', value='Reset')
+      script(src='/javascripts/userSettings.js', type='text/javascript')
+        

@@ -1,0 +1,55 @@
+extends layout
+
+block content
+    .editUserContainer.shadow
+      if(user.avatar)
+        img#userImage(src='/images/users.png', alt="user-image")
+      else
+        img#userImage(src='/images/users.png', alt="user-image")
+      br
+      .displayDetcont
+        if(user.name)
+          h2 #{user.name} 
+        br
+        h3#rank Global Rank #{user.rank}
+        br
+      .editUserForm
+        form(action='', method='post', onsubmit='return validateEditUser()') 
+          fieldset
+            legend #[strong Edit Cover Picture]
+            br
+            // img#preview(src='#', alt='Your Cover Pic')
+            input#avatar(type='file', name='avatar', accept='image/*', onchange='return fileUpload(event)')
+            br
+          fieldset#userDet
+            legend #[strong Edit User Details]
+            br
+            label Name
+            br
+            input(type='text' name='name' placeholder="Name", min=3, max=10, value='#{user.name}' required)
+            label Username
+            br
+            input(type='text' name='uname' placeholder="User Name", min=3, max=10, value='#{user.username}' required)
+            br
+            label Age
+            br
+            input(type='date', name='age', min='1900-01-01', max='2003-01-01', value='#{user.dob}' required)
+            br
+            label Location
+            br
+            br
+            select
+              option(value='America') Americas
+              option(value='Europe') Europe
+              option(value='Asia') Asia
+              option(value='Oceania') Oceania
+              option(value='Africa') Africa
+            br
+            br
+            input(type="hidden" name="username" value="#{user.username}")
+            input(type="hidden" name="location" value="#{user.location}")
+            input(type='submit' value='Submit Changes')
+            input(type='reset', value='Reset')
+          script(src='/javascripts/userSettings.js', type='text/javascript')
+          script setSelected('#{user.location}');
+            

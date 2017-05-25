@@ -10,7 +10,7 @@ function validateForm() {
 		alert("Passwords do not match.");
 		return false;
 	}
-	return true; 
+	return true;
 }
 
 /**
@@ -28,3 +28,30 @@ function showPassword() {
 		visible = false;
 	}
 }
+
+
+function validateMatchForm(){
+	var games = document.getElementsByClassName("cbox");
+	var oneChecked = false;
+	for (var i = 0; i < games.length; i++) {
+		if (games[i].checked) {
+			oneChecked = true;
+		}
+	}
+
+	if (!oneChecked) {
+		alert("Please select at least one game.")
+		return false;
+	}
+
+}
+// function to hide and show preferences list items
+function showPreferences() {
+	var list = document.getElementById("prefList");
+
+	if (list.style.display == "none"){
+		list.style.display = "block";
+		}else{
+			list.style.display = "none";
+			}
+	}
