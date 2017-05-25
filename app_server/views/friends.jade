@@ -16,9 +16,10 @@ block content
 			input#friendsearch
 			
 		ul#friendlist
-			for friend in friendslist
-			
-				a(href=friend.userpage)
-					img(src=friend.avatar)
-					p #{friend.loc}
-				a(href='/delete/'+ friend._id) Remove Friend
+			each pal in '#{friendUsers}'
+				if pal.status == 'accepted'
+					li
+						img(src=pal.avatar)
+						p pal.friend.username
+						p pal.friend.globalrank
+						a(href='/delete/'+ pal.friend.username) Remove Friend

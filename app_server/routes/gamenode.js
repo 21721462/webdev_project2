@@ -64,6 +64,12 @@ router.get('/friends', friendsController.friendsPageGet);
 // GET request for the chat page
 router.get('/chat', friendsController.chatPageGet);
 
+// Get request to send friend request
+router.get('/matchmake/:username', friendsController.reqFriend);
+
+// POST request for removing friends
+router.get('/friends/delete/:username', friendsController.delFriend);
+
 /**
  * Games Routes
  */
