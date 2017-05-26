@@ -245,7 +245,6 @@ exports.logout = function(req, res, next) {
 }
 
 // handles the match making algorithm function.
-/*
  exports.matchMakingGet = function(req, res, next) {
     // get the fields from match making pages and store it in variables.
     var gameName = req.body.gameName;
@@ -254,120 +253,244 @@ exports.logout = function(req, res, next) {
     var prefMaxAge = req.body.toAge;
     var prefRank = req.body.rank;
     var location = req.body.location;
+    gameName = "Tf2";
     console.log('gameName: ' + gameName);
     console.log('prefMinAge: ' + prefMinAge);
     console.log('prefMaxAge: ' + prefMaxAge);
     console.log('prefRank: ' + prefRank);
     console.log('username: ' + username);
     console.log('location: ' + location);
-    gameName = "TF2";
+
     // function to fetch data from mongo data base based on the search criteria
     // and returns a list of matches converted from the cursor object.
      //findMatches(){
     var listOfMatches;
     var listMatchArray;
-    if(gameName != null && location != null && prefRank != null && prefMinAge != null && prefMaxAge != null ){
-        listOfMatches = findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge );
-    } else if ( prefMinAge === null || prefMaxAge === null ){
-      listOfMatches = findMatchesExceptAge(gameName, location, prefRank);
-    } else if(prefRank === null) {
-      listOfMatches = findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge );
-    } else if(prefRank === null && (prefMinAge === null || prefMaxAge === null)){
-      listOfMatches = findMatchesGameLoc(gameName, location);
-    }else if(location === null && (prefMinAge === null || prefMaxAge === null)){
-      listOfMatches = findMatchesGameRank(gameName, prefRank);
-    } else if(location === null && prefRank === null){
-      listOfMatches = findMatchesGameAge(gameName, prefMinAge, prefMaxAge);
-    } else{
-      listOfMatches = findMatchesGameName(gameName);
+    if(gameName && location && prefRank && prefMinAge  && prefMaxAge ){
+        // listOfMatches =  test();
+        findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge);
+    } else if ( gameName && location && prefRank ){
+        findMatchesExceptAge(gameName, location, prefRank);
+    } else if(gameName && location && prefMinAge && prefMaxAge) {
+      findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge );
+    } else if(gameName && location){
+      // findAllMatchesNoCriteria();
+      findMatchesGameLoc(gameName, location);
+    }else if(gameName && prefRank){
+      findMatchesGameRank(gameName, prefRank);
+    } else if(gameName && prefMinAge && prefMaxAge){
+      findMatchesGameAge(gameName, prefMinAge, prefMaxAge);
+    } else if (gameName){
+      findMatchesGameName(gameName);
+    } else {
+      findAllMatchesNoCriteria();
     }
-    listMatchArray = listOfMatches.toArray();
-    console.log('Error Occured: ' + listMatchArray);
+
+    //var listMatchArray = listOfMatches.toArray(function(err, docs){});
+
+
+    //console.log("items"+ listOfMatches.forEach(printjson));
+    /* while (listOfMatches.hasNext()) {
+        print(tojson(myCursor.next()));
+      } */
     //}
 
     // match making based on all criterias ( age, rank, name and location)
-    findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge)
+    function findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge)
     {
-      var matches = db.User.find({age : { $gte: prefMinAge, $lte: prefMaxAge } , globalRank :  {lte: prefRank } , location : location,
-            gameRanks: {
+      User.find({ $and: [{age : { $gte: new Date(prefMinAge), $lte: new Date(prefMaxAge) } , location : location },
+            { gameRanks: {
               $elemMatch : {
                 gameName: gameName,
-                rank: {lte: prefRank}
+                rank: {$lte: prefRank}
               }
-            }}, { username: 1, location: 1, globalRank: 1}).limit(10)
-      return matches;
-    }
+            }}]}).limit(10).exec(
+              function(err, matchList){
+                if(err){ res.render('error', {
+                  message:err.message,
+                  error: err});
+          } else {
+            console.log('find complete1');
+            console.log(matchList.length);
+            //console.log(simpleData.toArray());
+            res.render('userMatch',{'matches':matchList,'user':req.user});
+            }
+	          }
+          );
+
+        };
+
+    // function to find all user matches without any criteria being passed.
+    // uses a find() function to return all results so that user search doesnt
+    // reutrn a null list
+    function findAllMatchesNoCriteria(){
+          User.find().limit(5).exec(
+            function(err, matchList){
+              if(err){ res.render('error', {
+                message:err.message,
+                error: err});
+        } else {
+          console.log('find complete2');
+          console.log(matchList.length);
+          res.render('userMatch',{'matches':matchList,'user':req.user});
+          // return matchList;
+          }
+       }
+    );
+
+  };
 
     // match making based on game,location and rank
-    findMatchesExceptAge(gameName, location, prefRank)
+    function findMatchesExceptAge(gameName, location, prefRank)
     {
-      var matches = db.User.find({location : location, globalRank :  {lte: prefRank },
-        gameRanks: {
+       User.find({ $and : [{location : location} ,
+        { gameRanks: {
           $elemMatch : {
             gameName: gameName,
-            rank: {lte: prefRank}
+            rank: {$lte: prefRank}
           }
         }
-      }, { username: 1, location: 1, globalRank: 1}).limit(10)
-    }
+      }]}).limit(10).exec(
+        function(err, matchList){
+          if(err){ res.render('error', {
+            message:err.message,
+            error: err});
+    } else {
+      console.log('find complete3');
+      console.log(matchList.length);
+      // return matchList;
+       res.render('userMatch',{'matches':matchList,'user':req.user});
+      }
+      }
+    );
+
+  };
+
+
 
     // match making based on game,location and age
-    findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge)
+    function findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge)
     {
-      var matches = db.User.find({location : location, age : { $gte: prefMinAge, $lte: prefMaxAge },
-        gameRanks: {
+      User.find({ $and: [{location : location, age : { $gte: new Date(prefMinAge), $lte: new Date(prefMaxAge) }},
+        { gameRanks: {
           $elemMatch : {
             gameName: gameName
            }
         }
-      }, { username: 1, location: 1, globalRank: 1}).limit(10)
-    }
+      }]}).limit(10).exec(
+        function(err, matchList){
+          if(err){ res.render('error', {
+            message:err.message,
+            error: err});
+    } else {
+      console.log('find complete4');
+      console.log(matchList.length);
+      // return matchList;
+       res.render('userMatch',{'matches':matchList,'user':req.user});
+      }
+      }
+    );
+
+  };
 
     // find matches based on game and location
-    findMatchesGameLoc(gameName, location)
+    function findMatchesGameLoc(gameName, location)
     {
-      var matches = db.User.find({location : location,
-        gameRanks: {
+      User.find({ $and: [{location : location },
+        { gameRanks: {
           $elemMatch : {
             gameName: gameName
            }
         }
-      }, { username: 1, location: 1, globalRank: 1}).limit(10)
-    }
+      }]}).limit(10).exec(
+        function(err, matchList){
+          if(err){ res.render('error', {
+            message:err.message,
+            error: err});
+    } else {
+      console.log('find complete5');
+      console.log(matchList.length);
+      // return matchList;
+       res.render('userMatch',{'matches':matchList,'user':req.user});
+      }
+      }
+    );
+
+  };
 
     // find matches based on game and age
-    findMatchesGameAge(gameName,prefMinAge,prefMaxAge)
+    function findMatchesGameAge(gameName,prefMinAge,prefMaxAge)
     {
-      var matches = db.User.find({ age : { $gte: prefMinAge, $lte: prefMaxAge },
-        gameRanks: {
+      User.find({ $and: [{ age : { $gte: new Date(prefMinAge), $lte: new Date(prefMaxAge) }},
+        { gameRanks: {
           $elemMatch : {
             gameName: gameName
            }
         }
-      }, { username: 1, location: 1, globalRank: 1}).limit(10)
-    }
+      },{username: 1, gameRanks: 1, location: 1}]}).limit(10).exec(
+        function(err, matchList){
+          if(err){ res.render('error', {
+            message:err.message,
+            error: err});
+    } else {
+      console.log('find complete6');
+      console.log(matchList.length);
+      // return matchList;
+       res.render('userMatch',{'matches':matchList,'user':req.user});
+      }
+      }
+    );
+
+  };
 
     // find mathces based on game and rank
-    findMatchesGameRank(gameName, prefRank)
+    function findMatchesGameRank(gameName, prefRank)
     {
-      var matches = db.User.find({ globalRank :  {lte: prefRank },
-        gameRanks: {
+      User.find({ $and: [{
+          gameRanks: {
           $elemMatch : {
             gameName: gameName
            }
         }
 
-      }, { username: 1, location: 1, globalRank: 1})
-    }
+      }]}).limit(10).exec(
+        function(err, matchList){
+          if(err){ res.render('error', {
+            message:err.message,
+            error: err});
+    } else {
+      console.log('find complete7');
+      console.log(matchList.length);
+      // return matchList;
+       res.render('userMatch',{'matches':matchList,'user':req.user});
+      }
+      }
+    );
+
+  };
 
     // match making based only on the game name preferences
-    findMatchesGameName(gameName)
+    function findMatchesGameName(gameName)
     {
-      var matches = db.User.find({
+      User.find({ $and: [{
               gameRanks: {
                 $elemMatch: {
                   gameName: gameName
                 }
-              }}, { username: 1, location: 1, globalRank: 1}).limit(10)
-    }
- }*/
+              }}]}).limit(10).exec(
+                function(err, matchList){
+                  if(err){ res.render('error', {
+                    message:err.message,
+                    error: err});
+            } else {
+              console.log('find complete8');
+              console.log(matchList.length);
+              // return matchList;
+               res.render('userMatch',{'matches':matchList,'user':req.user});
+              }
+              }
+            );
+
+          };
+
+ }

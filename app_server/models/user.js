@@ -14,7 +14,9 @@ var UserSchema = Schema({
 	age: {type: Date, required: true},
 	location: {type: String, required: true},
 	globalRank: {type: Number},
-	gameRanks: [{type: Schema.ObjectId, ref: 'GameRank'}]
+	gameRanks: [{ gameName: {type: String},
+						   rank: {type: Number},
+ 						   description: {type: String}}]
 });
 
 UserSchema.virtual('profile').get(function() {

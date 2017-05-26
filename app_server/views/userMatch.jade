@@ -9,7 +9,8 @@ block content
       .matDescrip
         p #{user.name} We will help you play games with your level of intellect.
               | Select games to find your preferred matches.
-    
+        
+        
     .gamelist.shadow
       form(action='', method='POST', onsubmit='return validateMatchForm()') 
         fieldset#games
@@ -30,8 +31,8 @@ block content
           ol#prefList
             li 
               label Age
-              input#fromAge(type='text', name='fromAge', placeholder="Min Age")
-              input#toAge(type='text', name='toAge', placeholder="Max Age")
+              input#fromAge(type='date', name='fromAge', placeholder="Min Age")
+              input#toAge(type='date', name='toAge', placeholder="Max Age")
             li 
               label Rank
               input#ranks(type='number', name='rank', placeholder="Preferred Rank")
@@ -41,4 +42,25 @@ block content
               input(type="hidden" name="username" value="#{user.username}")
               input(type="hidden" name="location" value="#{user.location}")
         input#matchButn(type='submit', value='Find Matches')      
+      .gameListShowMatches.shadow
+        if(matches)
+          P matches present
+          table
+            tr
+              th Name
+              th Location
+              th Game Name
+            each p in matches
+              tr
+                //td a(href='/play/'+p._id)
+                td #{p.name} 
+                td #{p.location}
+                each game in p.gameRanks
+                  td #{game.gameName} (#{game.rank})
+                td
+                  a(href='/request/#{p._id}') Add Friend
+        else
+          p no matches done yet
+        
         script(src='/javascripts/validate.js', type='text/javascript')
+                  

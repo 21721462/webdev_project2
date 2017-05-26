@@ -18,7 +18,7 @@ block content
 		ul#friendlist
 			each friend in friends 
 				if friend.status == 'accepted'
-					li
+					li.listitem
 						img(src=friend.avatar)
 						p #{friend.friend.username}
 						p #{friend.friend.globalRank}
@@ -28,7 +28,7 @@ block content
 		ul
 			each request in friends
 				if request.status == 'pending'
-					li
+					li.listitem
 						img(src='#{request.friend.avatar}')
 						p #{request.friend.name}
 						a(href='/accept/#{request.friend._id}') Accept Request

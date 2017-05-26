@@ -2,10 +2,10 @@ extends layout
 
 block content
     .editUserContainer.shadow
-      if(user.avatar)
+      if(user.avatar.data)
         img#userImage(src='/avatar', alt="user-image")
       else
-        img#userImage(src='/images/users.png', alt="user-image")
+        img#userImage(src='/images/users.png', alt="user-default")
       br
       .displayDetcont
         if(user.name)
