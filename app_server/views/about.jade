@@ -6,11 +6,13 @@ block content
         
         .shadow
             h2 How the matching algorithm works
-            p The matching algorithm works by grouping players based on selected criteria the user chooses. 
-                | The algorithm first selects one of the user's games, and runs a query on the database to
-                | find other users who also play that game. The algorithm accepts personal preferences for
-                | finding users based on a specific age, rank and location. Additionally, the algorithm
-                | can limit the number of players returned, but with a maximum of 10.
+            p The matching algorithm works by grouping players based on selected criteria the user chooses.  
+                | The algorithm first selects one of the user's games, and runs a query on the database to 
+                | find other users who also play that game. The algorithm accepts personal preferences for 
+                | finding users based on a specific age, rank and location. Additionally, the algorithm 
+                | can limit the number of players returned, but with a maximum of 10. If the user doesn't have 
+                | any games, then the default matching algorithm returns users that play any game with the number of 
+                | matches specified.
 
         .shadow
             h2 The architecture that was used

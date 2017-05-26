@@ -316,7 +316,7 @@ exports.steamLoginReturn = function(req, res)
 }
 
 // handles the match making algorithm function.
- exports.matchMakingGet = function(req, res, next) {
+ exports.matchMakingPost = function(req, res, next) {
     // get the fields from match making pages and store it in variables.
     var gameName = req.body.gameName;
     var username = req.body.username;
