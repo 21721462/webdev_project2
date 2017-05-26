@@ -3,36 +3,33 @@ extends layout
 block content
     .defaultbanner.shadow
         h1 About
-        p.shadow Webpage created by Konrad Obara 21721462 for CITS3403.
-            | The theme is a video game matchmaking service. It will pair players up based on their achieved rank. 
-            | Below are the images and their corresponding sources I used in this project.
         
-        section.shadow
+        .shadow
             h2 How the matching algorithm works
             p The matching algorithm works by grouping players of similar rank. The algorithm looks at 
                 | which games a user plays, as well as for how long, and displays other users with similar 
                 | stats. 
 
-        section.shadow
+        .shadow
             h2 The architecture that was used
             p The website uses an MVC architecture. Whenever the server receives a request, it gets send to the 
                 | router. The router then selects the appropriate controller for the request. If needed, the 
                 | controller can query the database and retrieve the required information. After the controller 
                 | has finished, it renders a HTML page from a template to display on the screen.
 
-        section.shadow
+        .shadow
             h2 The design choices made along the way
             p insert text here
 
-        section.shadow
+        .shadow
             h2 Any difficulties faced along the way
             p insert text here
 
-        section.shadow
+        .shadow
             h2 Tests, validation, and results
             p insert text here
 
-        section.shadow
+        .shadow
             h2 Student information
             p insert text here
 

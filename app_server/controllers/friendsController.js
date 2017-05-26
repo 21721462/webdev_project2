@@ -1,8 +1,7 @@
 /**
- * CRUD operations for the Friends model.
+ * CRUD operations for frienships
  */
 
-var Friends = require('../models/friends');
 var User = require('../models/user');
 
 // Display the friends page

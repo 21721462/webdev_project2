@@ -12,7 +12,6 @@ var upload = multer({dest: __dirname + '/../../public/uploads/'});
 var userController = require('../controllers/userController');
 var gameController = require('../controllers/gameController');
 var friendsController = require('../controllers/friendsController');
-var gameRankController = require('../controllers/gameRankController');
 
 /**
  * User Routes

@@ -245,7 +245,7 @@ exports.logout = function(req, res, next) {
 }
 
 // handles the match making algorithm function.
- exports.matchMakingGet = function(req, res, next) {
+exports.matchMakingGet = function(req, res, next) {
     // get the fields from match making pages and store it in variables.
     var gameName = req.body.gameName;
     var username = req.body.username;
