@@ -20,14 +20,16 @@ block content
 				if friend.status == 'accepted'
 					li
 						img(src=friend.avatar)
-						p pal.friend.username
-						p pal.friend.globalrank
-						a(href='/delete/'+ pal.friend.username) Remove Friend
+						p #{friend.friend.username}
+						p #{friend.friend.globalRank}
+						a(href='/chat/#{friend.friend._id}') Chat
+						a(href='/delete/#{friend.friend._id}') Remove Friend
 		p Here you can view any friend requests
 		ul
 			each request in friends
 				if request.status == 'pending'
 					li
-						img(src=friend.avatar)
-						a(href='/accept/' + request.friend.username)
+						img(src='#{request.friend.avatar}')
+						p #{request.friend.name}
+						a(href='/accept/#{request.friend._id}') Accept Request
 						

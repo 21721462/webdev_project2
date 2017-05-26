@@ -61,17 +61,29 @@ router.get('/logout', userController.logout);
 // GET request for the friends page
 router.get('/friends', friendsController.friendsPageGet);
 
+// GET request for handling a chat request
+router.get('/chat/:id', friendsController.chatFriend);
+
+// GET request for handling a friend request
+router.get('/request/:id', friendsController.requestFriend);
+
+// GET request for handling a friend accept request
+router.get('/accept/:id', friendsController.acceptFriend);
+
+// GET request for handling a delete friend request
+router.get('/delete/:id', friendsController.deleteFriend);
+
 // GET request for the matchmaker page
 router.get('/matchmaker', friendsController.matchmakerPageGet);
 
 // GET request for the chat page
-router.get('/chat', friendsController.chatPageGet);
+//router.get('/chat', friendsController.chatPageGet);
 
 // Get request to send friend request
-router.get('/matchmake/:username', friendsController.reqFriend);
+//router.get('/matchmake/:username', friendsController.reqFriend);
 
 // POST request for removing friends
-router.get('/friends/delete/:username', friendsController.delFriend);
+//router.get('/friends/delete/:username', friendsController.delFriend);
 
 /**
  * Games Routes
