@@ -7,24 +7,20 @@ block content
       h1 Find Your Matches
       br
       .matDescrip
-        p #{user.name} We will help you play games with your level of intellect.
+        p #[strong #{user.name}], we will help you play games with your level of intellect.
               | Select games to find your preferred matches.
         
         
     .gamelist.shadow
       form(action='', method='POST', onsubmit='return validateMatchForm()') 
         fieldset#games
-          legend #[strong Select a game]
-          label TF2
-          input.cbox(type='radio' name='Tf2') 
-          label CSGO
-          input.cbox(type='radio' name='CSGO')
+          label #[strong Choose Your Game]
           br
-          label Dota2
-          input.cbox(type='radio' name='Dota2')
-          label Overwatch
-          input.cbox(type='radio' name='Overwatch')
           br
+          each mygame in user.gameRanks
+            select(name='gameName')
+              option(name='gameName', value='#{mygame.gameName}') #{mygame.gameName}
+                    
         fieldset.additPref 
           p#pref(onclick='showPreferences()') Additional Preferences  
             img#downArrow(src='/images/arrow-down.png', alt="down-arrow")
@@ -39,11 +35,14 @@ block content
             li 
               label No of Matches
               input(type='number', name='noOfMat', placeholder='No of Matches ', max=10)
+            li
+              label Disable Location
+              input(type="radio", name="locDis")
               input(type="hidden" name="username" value="#{user.username}")
               input(type="hidden" name="location" value="#{user.location}")
         input#matchButn(type='submit', value='Find Matches')      
-      
-      .gameListShowMatches  
+          
+    .gameListShowMatches  
         if(matches)
           table#matchResult
             tr
@@ -51,7 +50,7 @@ block content
               th Location
               th Game Name
               th Rank
-              th Friend Request
+			  th Friend Request
             each p in matches
               tr
                 //td a(href='/play/'+p._id)
@@ -61,6 +60,8 @@ block content
                   td #{game.gameName} 
                   td #{game.rank}
                 td
-                  a(href='/request/#{p._id}') Add Friend
+				          a(href='/request/#{p._id}') Add Friend
+                
         script(src='/javascripts/validate.js', type='text/javascript')
+        
                   

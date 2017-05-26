@@ -31,12 +31,13 @@ function showPassword() {
 
 
 function validateMatchForm(){
-	var games = document.getElementsByClassName("cbox");
+	var games = document.getElementsByName("gameName");
 	var oneChecked = false;
-	for (var i = 0; i < games.length; i++) {
-		if (games[i].checked) {
-			oneChecked = true;
-		}
+	for (var i = 0; i < games.options.length; i++) {
+			if (games.options[i].value == selected) {
+					oneChecked = true;
+					break;
+			}
 	}
 
 	if (!oneChecked) {
@@ -45,6 +46,7 @@ function validateMatchForm(){
 	}
 
 }
+
 // function to hide and show preferences list items
 function showPreferences() {
 	var list = document.getElementById("prefList");

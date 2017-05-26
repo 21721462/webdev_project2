@@ -316,23 +316,23 @@ exports.steamLoginReturn = function(req, res)
 }
 
 // handles the match making algorithm function.
-exports.matchMakingPost = function(req, res, next) {
+ exports.matchMakingGet = function(req, res, next) {
     // get the fields from match making pages and store it in variables.
     var gameName = req.body.gameName;
     var username = req.body.username;
     var prefMinAge = req.body.fromAge;
     var prefMaxAge = req.body.toAge;
     var prefRank = req.body.rank;
-    var location = req.body.location;
+
     var noOfMat = req.body.noOfMat;
-    gameName = "Tf2";
+    var disLoc = req.body.locDis;
     console.log('gameName: ' + gameName);
     console.log('prefMinAge: ' + prefMinAge);
     console.log('prefMaxAge: ' + prefMaxAge);
     console.log('prefRank: ' + prefRank);
     console.log('username: ' + username);
     console.log('location: ' + location);
-    console.log('no of mat: ' + noOfMat);
+    console.log('disLoc: ' + disLoc);
     // function to fetch data from mongo data base based on the search criteria
     // and returns a list of matches converted from the cursor object.
      //findMatches(){
@@ -341,6 +341,9 @@ exports.matchMakingPost = function(req, res, next) {
     var noOfMatches = 10;
     if(noOfMat){
       noOfMatches = noOfMat;
+    }
+    if(disLoc != "on"){
+      var location = req.body.location;
     }
     if(gameName && location && prefRank && prefMinAge  && prefMaxAge ){
         // listOfMatches =  test();
@@ -352,6 +355,8 @@ exports.matchMakingPost = function(req, res, next) {
     } else if(gameName && location){
       // findAllMatchesNoCriteria();
       findMatchesGameLoc(gameName, location, Number(noOfMatches));
+    }else if(gameName && prefRank && prefMinAge  && prefMaxAge ){
+        findMatchesExcLoc(gameName, prefRank, prefMinAge, prefMaxAge, Number(noOfMatches));
     }else if(gameName && prefRank){
       findMatchesGameRank(gameName, prefRank, Number(noOfMatches));
     } else if(gameName && prefMinAge && prefMaxAge){
@@ -568,5 +573,30 @@ exports.matchMakingPost = function(req, res, next) {
             );
 
           };
+
+          function findMatchesExcLoc(gameName, prefRank, prefMinAge, prefMaxAge, noOfMat)
+          {
+            User.find({ $and: [{age : { $gte: new Date(prefMinAge), $lte: new Date(prefMaxAge) } },
+                  { gameRanks: {
+                    $elemMatch : {
+                      gameName: gameName,
+                      rank: {$lte: prefRank}
+                    }
+                  }}]}).limit(noOfMat).exec(
+                    function(err, matchList){
+                      if(err){ res.render('error', {
+                        message:err.message,
+                        error: err});
+                } else {
+                  console.log('find complete 9');
+                  console.log(matchList.length);
+                  //console.log(simpleData.toArray());
+                  res.render('userMatch',{'matches':matchList,'user':req.user});
+                  }
+      	          }
+                );
+
+              };
+
 
  }
