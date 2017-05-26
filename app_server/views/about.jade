@@ -6,39 +6,51 @@ block content
         
         .shadow
             h2 How the matching algorithm works
-            p The matching algorithm works by grouping players of similar rank. The algorithm looks at 
-                | which games a user plays, as well as for how long, and displays other users with similar 
-                | stats. 
+            p The matching algorithm works by grouping players based on selected criteria the user chooses. 
+                | The algorithm first selects one of the user's games, and runs a query on the database to
+                | find other users who also play that game. The algorithm accepts personal preferences for
+                | finding users based on a specific age, rank and location. Additionally, the algorithm
+                | can limit the number of players returned, but with a maximum of 10.
 
         .shadow
             h2 The architecture that was used
-            p The website uses an MVC architecture. Whenever the server receives a request, it gets send to the 
+            p The website uses an MVC architecture. Whenever the server receives a request, it gets sent to the 
                 | router. The router then selects the appropriate controller for the request. If needed, the 
-                | controller can query the database and retrieve the required information. After the controller 
-                | has finished, it renders a HTML page from a template to display on the screen.
+                | controller can query the database to retrieve the required information, and then construct 
+                | an appropriate response. After the controller has finished, it renders a HTML page from a 
+                | template to display on the screen.
 
         .shadow
             h2 The design choices made along the way
             p One design choice we made was to allow for steam integration in the registration. This way, users can 
-                | log in with their steam account and the registration data can be auto-filled. Another design choice
-                | was to implement our own ranking system. This was to help users find matches with other users that
-                | have the same ability as them.
+                | log in with their steam account and the registration data can be auto-filled. The data auto-filled
+                | includes the users name, username and location. Another design choice was to implement our own 
+                | ranking system. This was to help users find matches with other users that have the same ability as them.
 
         .shadow
             h2 Any difficulties faced along the way
-            p The steam integration service was extremely time-consuming and difficult to implement. The mongoose-friends
-                | library has an issue where friends cannot be deleted. This is an ongoing issue on their GitHub repository.
+            p The steam integration service was extremely time-consuming and difficult to implement. The mongoose-friends 
+                | library has an issue where friends cannot be deleted. This is an ongoing issue on their GitHub repository. 
+                | Using the MongoDB databases was a challenge as they did not support SQL-like joins. This made querying 
+                | the database tedious, and a lot of work arounds had to be implemented. Converting the HTML files to 
+                | Jade was quite difficult at the start, as it was a completely new language that we had to learn from 
+                | scratch.
 
         .shadow
             h2 Tests, validation, and results
-            p No tests cases were done due to time constraints. However data validation was implemented on login, registration, and
-                | account updates.
+            p No tests cases were done due to time constraints. However data validation was implemented on login, registration, 
+                | and account updates. For any of these pages, if the user enters incorrect data, an error message will be
+                | displayed at the bottom of the screen. Additionally, each of these pages supports both client-side and
+                | server-side validation to ensure that no bad values are stored in the database.
 
         .shadow
             h2 Student information
-            p Konrad Obara
-            p Matthew Satti - 21728805
-            p Sreejith VM 
+            p 
+                | Konrad Obara - 21721462
+                br
+                | Matthew Satti - 21728805
+                br
+                | Sreejith VM - 21679846
 
         section.listitem.shadow
             h2 References
