@@ -53,6 +53,12 @@ router.post('/login', userController.loginPagePost);
 // GET request for logging out
 router.get('/logout', userController.logout);
 
+// GET request for Steam Register
+router.get('/register/steam', passport.authenticate('steam', { failureRedirect: '/register' }), userController.steamLogin);
+
+// GET request for Steam Register return 
+router.get('/register/steam/return',  passport.authenticate('steam', { failureRedirect: '/register' }), userController.steamLoginReturn);
+
 /**
  * Friends Routes
  */

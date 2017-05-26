@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var SteamStrategy = require('passport-steam').Strategy;
 
 var gamenode = require('./app_server/routes/gamenode');
 
@@ -48,6 +49,15 @@ var User = require('./app_server/models/user');
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+var User = require('./app_server/models/user');
+var userController = require('./app_server/controllers/userController.js');
+// Steam Login configuration
+passport.use(new SteamStrategy({
+    returnURL: 'http://localhost:3000/register/steam/return',
+    realm: 'http://localhost:3000/',
+    apiKey: '7A36CE5D577CEAED8B1CF5D289A65C0A'
+  }, userController.regSteam));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

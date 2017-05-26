@@ -6,7 +6,8 @@ block content
 		p.shadow Below is the selection of games that you can play using our matchmaking services.
 
 	.games.shadow
-		for game in gamelist
-			a(href=game.link)
-				img(src=game.image)
-				p game.desc
+		for game in games
+			.shadow
+				p
+					strong #{game.name}
+				p #{game.description}

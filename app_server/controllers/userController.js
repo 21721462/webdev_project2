@@ -8,6 +8,9 @@ var passport = require('passport');
 var multer = require('multer');
 var validator = require('validator');
 var User = require('../models/user');
+var Game = require('../models/game');
+var request = require('request');
+var country = require('countryjs');
 
 // Display the home page
 exports.homePageGet = function(req, res, next) {
@@ -25,7 +28,55 @@ exports.registerPageGet = function(req, res, next) {
     var message = req.session.registerError;
     req.session.registerError = null;
 
-    res.render('register', {title: 'Register', error: message});
+    if (typeof obj == 'undefined') {
+        res.render('register', {title: 'Register', error: message, fullname: 'Insert Fullname Here', username: 'Insert Username Here'});
+    }
+    else {
+       res.render('register', {title: 'Register', error: message, fullname: obj.fnamTEMP, username: obj.unameTEMP, continent: obj.citylocTEMP});
+    }
+}
+
+exports.regSteam = function (identifier, profile, done) 
+{
+    obj = {};
+    var steamId = identifier.match(/\d+$/)[0];
+    console.log(steamId);
+    var profileURL = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + '7A36CE5D577CEAED8B1CF5D289A65C0A' + '&steamids=' + steamId;
+    var gameList = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + '7A36CE5D577CEAED8B1CF5D289A65C0A' + '&steamid=' + steamId;
+           request(profileURL, function (error, response, body) 
+           {
+                if (!error && response.statusCode === 200) 
+                {
+                    var data = JSON.parse(body);
+                    var profile = data.response.players[0];
+
+                    var uname = profile.personaname;
+                    var fname = profile.realname;
+                    var avatar = profile.avatarmedium;
+                    var cityloc = country.region(profile.loccountrycode);
+                
+                    obj = {
+                        unameTEMP : uname,
+                        fnamTEMP : fname,
+                        citylocTEMP : cityloc
+                    }
+
+                    done(error, null);
+                }
+            });
+           request(gameList, function(error, response, body)
+           {
+            if (!error && response.statusCode === 200) 
+                {
+                    var data = JSON.parse(body);
+                    var gamecount = data.response.game_count;
+                    console.log(gamecount);
+                    var usergameList = data.response.games;
+                    console.log(usergameList[4].appid);
+
+                    //gameschema.find({'gameschma.id:usergamesList.appid)
+           }
+       });
 }
 
 // Handle POST on register page
@@ -252,6 +303,16 @@ exports.loginPagePost = function(req, res, next) {
 exports.logout = function(req, res, next) {
     req.logout();
     res.redirect('/');
+}
+
+exports.steamLogin = function(req, res)
+{
+    //Redirects to the Steam Login Page
+}
+
+exports.steamLoginReturn = function(req, res)
+{
+    res.redirect('register');
 }
 
 // handles the match making algorithm function.

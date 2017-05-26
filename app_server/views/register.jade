@@ -2,17 +2,20 @@ extends layout
 
 block content
 	.register.shadow
+		p
+			a(href='/register/steam') Register To Steam
+		a(href="/")
 		form(action='', method='POST', onsubmit='return validateForm()')
 			fieldset
 				legend #[strong Register]
 				label Name
 				br
-				input(type='text', name='name', min='3', max='100', required)
+				input(type='text', name='name', min='3', max='100',value='#{fullname}', required)
 				br
 				br
 				label Username
 				br
-				input(type='text', name='username', min='3', max='100', required)
+				input(type='text', name='username', min='3', max='100', value='#{username}', required)
 				br
 				br
 				label Password
@@ -47,8 +50,34 @@ block content
 					option(value='Africa') Africa
 				br
 				br
+				.gameselect
+					input(type='checkbox', name='tf2')
+					label#tf2(for ='tf2') 
+					input(type='checkbox', name='csgo')
+					label#csgo(for='csgo')
+					input(type='checkbox', name='player')
+					label#player(for='player')
+					input(type='checkbox', name='h1z1')
+					label#h1z1(for='h1z1')
+					input(type='checkbox', name='gta5')
+					label#gta5(for='gta5')
+					input(type='checkbox', name='ark')
+					label#ark(for='ark')
+					input(type='checkbox', name='warframe')
+					label#warframe(for='warframe')
+					input(type='checkbox', name='rust')
+					label#rust(for='rust')
+					input(type='checkbox', name='dota2')
+					label#dota2(for='dota2')
+
 				input(type='submit' value='Submit')
 				input(type='reset' value='Reset')
+				ul#gamechoice
+					
+
 				if (error)
 					p.error #{error}
 		script(src='/javascripts/validate.js', type='text/javascript')
+		script(src='/javascripts/userSettings.js', type='text/javascript')
+		script setSelected('#{continent}');
+		
