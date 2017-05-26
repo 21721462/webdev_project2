@@ -245,7 +245,7 @@ exports.logout = function(req, res, next) {
 }
 
 // handles the match making algorithm function.
-exports.matchMakingGet = function(req, res, next) {
+exports.matchMakingPost = function(req, res, next) {
     // get the fields from match making pages and store it in variables.
     var gameName = req.body.gameName;
     var username = req.body.username;
@@ -253,6 +253,7 @@ exports.matchMakingGet = function(req, res, next) {
     var prefMaxAge = req.body.toAge;
     var prefRank = req.body.rank;
     var location = req.body.location;
+    var noOfMat = req.body.noOfMat;
     gameName = "Tf2";
     console.log('gameName: ' + gameName);
     console.log('prefMinAge: ' + prefMinAge);
@@ -260,30 +261,34 @@ exports.matchMakingGet = function(req, res, next) {
     console.log('prefRank: ' + prefRank);
     console.log('username: ' + username);
     console.log('location: ' + location);
-
+    console.log('no of mat: ' + noOfMat);
     // function to fetch data from mongo data base based on the search criteria
     // and returns a list of matches converted from the cursor object.
      //findMatches(){
     var listOfMatches;
     var listMatchArray;
+    var noOfMatches = 10;
+    if(noOfMat){
+      noOfMatches = noOfMat;
+    }
     if(gameName && location && prefRank && prefMinAge  && prefMaxAge ){
         // listOfMatches =  test();
-        findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge);
+        findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge, Number(noOfMat));
     } else if ( gameName && location && prefRank ){
-        findMatchesExceptAge(gameName, location, prefRank);
+        findMatchesExceptAge(gameName, location, prefRank, Number(noOfMat));
     } else if(gameName && location && prefMinAge && prefMaxAge) {
-      findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge );
+      findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge, Number(noOfMat) );
     } else if(gameName && location){
       // findAllMatchesNoCriteria();
-      findMatchesGameLoc(gameName, location);
+      findMatchesGameLoc(gameName, location, Number(noOfMat));
     }else if(gameName && prefRank){
-      findMatchesGameRank(gameName, prefRank);
+      findMatchesGameRank(gameName, prefRank, Number(noOfMat));
     } else if(gameName && prefMinAge && prefMaxAge){
-      findMatchesGameAge(gameName, prefMinAge, prefMaxAge);
+      findMatchesGameAge(gameName, prefMinAge, prefMaxAge, Number(noOfMat));
     } else if (gameName){
-      findMatchesGameName(gameName);
+      findMatchesGameName(gameName, Number(noOfMat));
     } else {
-      findAllMatchesNoCriteria();
+      findAllMatchesNoCriteria(Number(noOfMat));
     }
 
     //var listMatchArray = listOfMatches.toArray(function(err, docs){});
@@ -296,7 +301,7 @@ exports.matchMakingGet = function(req, res, next) {
     //}
 
     // match making based on all criterias ( age, rank, name and location)
-    function findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge)
+    function findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge, noOfMat)
     {
       User.find({ $and: [{age : { $gte: new Date(prefMinAge), $lte: new Date(prefMaxAge) } , location : location },
             { gameRanks: {
@@ -304,7 +309,7 @@ exports.matchMakingGet = function(req, res, next) {
                 gameName: gameName,
                 rank: {$lte: prefRank}
               }
-            }}]}).limit(10).exec(
+            }}]}).limit(noOfMat).exec(
               function(err, matchList){
                 if(err){ res.render('error', {
                   message:err.message,
@@ -323,8 +328,8 @@ exports.matchMakingGet = function(req, res, next) {
     // function to find all user matches without any criteria being passed.
     // uses a find() function to return all results so that user search doesnt
     // reutrn a null list
-    function findAllMatchesNoCriteria(){
-          User.find().limit(5).exec(
+    function findAllMatchesNoCriteria(noOfMat){
+          User.find().limit(noOfMat).exec(
             function(err, matchList){
               if(err){ res.render('error', {
                 message:err.message,
@@ -341,7 +346,7 @@ exports.matchMakingGet = function(req, res, next) {
   };
 
     // match making based on game,location and rank
-    function findMatchesExceptAge(gameName, location, prefRank)
+    function findMatchesExceptAge(gameName, location, prefRank, noOfMat)
     {
        User.find({ $and : [{location : location} ,
         { gameRanks: {
@@ -350,7 +355,7 @@ exports.matchMakingGet = function(req, res, next) {
             rank: {$lte: prefRank}
           }
         }
-      }]}).limit(10).exec(
+      }]}).limit(noOfMat).exec(
         function(err, matchList){
           if(err){ res.render('error', {
             message:err.message,
@@ -369,7 +374,7 @@ exports.matchMakingGet = function(req, res, next) {
 
 
     // match making based on game,location and age
-    function findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge)
+    function findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge, noOfMat)
     {
       User.find({ $and: [{location : location, age : { $gte: new Date(prefMinAge), $lte: new Date(prefMaxAge) }},
         { gameRanks: {
@@ -377,7 +382,7 @@ exports.matchMakingGet = function(req, res, next) {
             gameName: gameName
            }
         }
-      }]}).limit(10).exec(
+      }]}).limit(noOfMat).exec(
         function(err, matchList){
           if(err){ res.render('error', {
             message:err.message,
@@ -394,7 +399,7 @@ exports.matchMakingGet = function(req, res, next) {
   };
 
     // find matches based on game and location
-    function findMatchesGameLoc(gameName, location)
+    function findMatchesGameLoc(gameName, location, noOfMat)
     {
       User.find({ $and: [{location : location },
         { gameRanks: {
@@ -402,7 +407,7 @@ exports.matchMakingGet = function(req, res, next) {
             gameName: gameName
            }
         }
-      }]}).limit(10).exec(
+      }]}).limit(noOfMat).exec(
         function(err, matchList){
           if(err){ res.render('error', {
             message:err.message,
@@ -419,7 +424,7 @@ exports.matchMakingGet = function(req, res, next) {
   };
 
     // find matches based on game and age
-    function findMatchesGameAge(gameName,prefMinAge,prefMaxAge)
+    function findMatchesGameAge(gameName,prefMinAge,prefMaxAge, noOfMat)
     {
       User.find({ $and: [{ age : { $gte: new Date(prefMinAge), $lte: new Date(prefMaxAge) }},
         { gameRanks: {
@@ -427,7 +432,7 @@ exports.matchMakingGet = function(req, res, next) {
             gameName: gameName
            }
         }
-      },{username: 1, gameRanks: 1, location: 1}]}).limit(10).exec(
+      }]}).limit(noOfMat).exec(
         function(err, matchList){
           if(err){ res.render('error', {
             message:err.message,
@@ -444,7 +449,7 @@ exports.matchMakingGet = function(req, res, next) {
   };
 
     // find mathces based on game and rank
-    function findMatchesGameRank(gameName, prefRank)
+    function findMatchesGameRank(gameName, prefRank, noOfMat)
     {
       User.find({ $and: [{
           gameRanks: {
@@ -453,7 +458,7 @@ exports.matchMakingGet = function(req, res, next) {
            }
         }
 
-      }]}).limit(10).exec(
+      }]}).limit(noOfMat).exec(
         function(err, matchList){
           if(err){ res.render('error', {
             message:err.message,
@@ -470,14 +475,14 @@ exports.matchMakingGet = function(req, res, next) {
   };
 
     // match making based only on the game name preferences
-    function findMatchesGameName(gameName)
+    function findMatchesGameName(gameName, noOfMat)
     {
       User.find({ $and: [{
               gameRanks: {
                 $elemMatch: {
                   gameName: gameName
                 }
-              }}]}).limit(10).exec(
+              }}]}).limit(noOfMat).exec(
                 function(err, matchList){
                   if(err){ res.render('error', {
                     message:err.message,

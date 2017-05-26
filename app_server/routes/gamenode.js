@@ -60,6 +60,9 @@ router.get('/logout', userController.logout);
 // GET request for the friends page
 router.get('/friends', friendsController.friendsPageGet);
 
+// POST request for searching a user
+router.get('/friends', friendsController.friendsPagePost);
+
 // GET request for handling a chat request
 router.get('/chat/:id', friendsController.chatFriend);
 

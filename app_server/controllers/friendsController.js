@@ -14,6 +14,18 @@ exports.friendsPageGet = function(req, res, next) {
     });
 }
 
+exports.friendsPagePost = function(req, res, next) {
+	var friend = User.findByUsername(req.body.friendName);
+	if (friend) {
+		req.user.requestFriend(friend, function(err, friendships) {
+			if (err) {
+				return next(err);
+			}
+			res.redirect('back');
+		});
+	}
+}
+
 exports.requestFriend = function(req, res, next) {
     req.user.requestFriend(req.params.id, function(err, friendships) {
         if (err) {

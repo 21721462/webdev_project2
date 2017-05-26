@@ -13,23 +13,30 @@ block content
 			input#friendadd(type='text', name='friendName')
 			input(type='submit', name='submit')
 
-	.friendslist
-		p Here you can view your friends
+	.myFriends.shadow
+		p Here you can view your friends:
 		ul#friendlist
-			each friend in friends 
-				if friend.status == 'accepted'
-					li.listitem
-						img(src=friend.avatar)
-						p #{friend.friend.username}
-						p #{friend.friend.globalRank}
-						a(href='/chat/#{friend.friend._id}') Chat
-						a(href='/delete/#{friend.friend._id}') Remove Friend
-		p Here you can view any friend requests
+			if (friends)
+				each friend in friends 
+					if (friend.status == 'accepted')
+						li.listitem
+							img(src=friend.avatar)
+							p #{friend.friend.username}
+							p #{friend.friend.globalRank}
+							a(href='/chat/#{friend.friend._id}') Chat
+							a(href='/delete/#{friend.friend._id}') Remove Friend
+				if (friends.length == 0)
+					p You have no friends.
+	.myRequests.shadow
+		p Here you can view any friend requests:
 		ul
-			each request in friends
-				if request.status == 'pending'
-					li.listitem
-						img(src='#{request.friend.avatar}')
-						p #{request.friend.name}
-						a(href='/accept/#{request.friend._id}') Accept Request
+			if (friends)
+				each request in friends
+					if (request.status == 'pending')
+						li.listitem
+							img(src='#{request.friend.avatar}')
+							p #{request.friend.name}
+							a(href='/accept/#{request.friend._id}') Accept Request
+				if (friends.length == 0)
+					p You have no new friend requests.
 						
