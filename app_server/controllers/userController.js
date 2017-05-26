@@ -47,7 +47,7 @@ exports.registerPagePost = function(req, res, next) {
     // Clean the password fields
     var password = req.body.password;
     var confirmPassword = req.body['confirm-password'];
-    if (!(password.length >= 6)) {
+    if (password.length < 6) {
         req.session.registerError = 'Password must be at least 6 characters.';
         return res.redirect('back');
     }
@@ -178,12 +178,22 @@ exports.settingsPagePost = function(req, res, next) {
     // Clean the email field
     var email = req.body.email;
     if (!validator.isEmail(email)) {
-        req.session.registerError = 'Please provide a valid email address.';
+        req.session.settingsError = 'Please provide a valid email address.';
+        return res.redirect('back');
+    }
+
+    var password = req.body.password;
+    var confirmPassword = req.body.confpassword;
+    if (password.length < 6) {
+        req.session.settingsError = 'Password must be at least 6 characters.';
+        return res.redirect('back');
+    }
+    if (!(password === confirmPassword)) {
+        req.session.settingsError = 'Passwords do not match.';
         return res.redirect('back');
     }
 
     // Set password
-    var password = req.body.password;
     req.user.setPassword(password, function() {
         req.user.save();
     });
@@ -273,22 +283,22 @@ exports.matchMakingPost = function(req, res, next) {
     }
     if(gameName && location && prefRank && prefMinAge  && prefMaxAge ){
         // listOfMatches =  test();
-        findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge, Number(noOfMat));
+        findMatchesAllCriteria(gameName, location, prefRank, prefMinAge, prefMaxAge, Number(noOfMatches));
     } else if ( gameName && location && prefRank ){
-        findMatchesExceptAge(gameName, location, prefRank, Number(noOfMat));
+        findMatchesExceptAge(gameName, location, prefRank, Number(noOfMatches));
     } else if(gameName && location && prefMinAge && prefMaxAge) {
-      findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge, Number(noOfMat) );
+      findMatchesExceptRank(gameName, location, prefMinAge, prefMaxAge, Number(noOfMatches) );
     } else if(gameName && location){
       // findAllMatchesNoCriteria();
-      findMatchesGameLoc(gameName, location, Number(noOfMat));
+      findMatchesGameLoc(gameName, location, Number(noOfMatches));
     }else if(gameName && prefRank){
-      findMatchesGameRank(gameName, prefRank, Number(noOfMat));
+      findMatchesGameRank(gameName, prefRank, Number(noOfMatches));
     } else if(gameName && prefMinAge && prefMaxAge){
-      findMatchesGameAge(gameName, prefMinAge, prefMaxAge, Number(noOfMat));
+      findMatchesGameAge(gameName, prefMinAge, prefMaxAge, Number(noOfMatches));
     } else if (gameName){
-      findMatchesGameName(gameName, Number(noOfMat));
+      findMatchesGameName(gameName, Number(noOfMatches));
     } else {
-      findAllMatchesNoCriteria(Number(noOfMat));
+      findAllMatchesNoCriteria(Number(noOfMatches));
     }
 
     //var listMatchArray = listOfMatches.toArray(function(err, docs){});

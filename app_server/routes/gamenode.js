@@ -79,7 +79,7 @@ router.get('/delete/:id', friendsController.deleteFriend);
 router.get('/matchmaker', friendsController.matchmakerPageGet);
 
 // POST request for the matching algorithm
-router.post('/matchmaker', friendsController.matchMakingPost);
+router.post('/matchmaker', userController.matchMakingPost);
 
 /**
  * Games Routes
